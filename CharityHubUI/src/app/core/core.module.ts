@@ -7,6 +7,7 @@ import { UserService } from './services/user-service/user.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { FooterComponent } from './footer/footer.component';
 import { MatIconModule } from '@angular/material';
 import { MyCharityService } from "./services/charity-service/myCharityService.service";
 
@@ -19,8 +20,8 @@ import { MyCharityService } from "./services/charity-service/myCharityService.se
         HttpClientModule,
         MatIconModule
     ],
-    declarations: [ToolbarComponent],
-    exports: [ToolbarComponent],
+    declarations: [ToolbarComponent, FooterComponent],
+    exports: [ToolbarComponent, FooterComponent],
     providers: [UserService, MyCharityService], 
     schemas: [NO_ERRORS_SCHEMA]
 })

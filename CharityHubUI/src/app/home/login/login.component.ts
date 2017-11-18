@@ -22,7 +22,7 @@ export class LoginComponent {
     onSubmit(form: NgForm) {
         this.userService.login(this.loginModel)
             .then(() => {
-                this.router.navigate(['/charity/events']);
+                this.router.navigate(['/charity/myCharity']);
             });
     }
 

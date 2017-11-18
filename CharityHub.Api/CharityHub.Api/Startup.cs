@@ -23,7 +23,7 @@ namespace CharityHub.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddCors();
 
             services.AddDbContext<CharityHubContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -34,7 +34,6 @@ namespace CharityHub.Api
                 c.SwaggerDoc("v1", new Info { Title = "My API", Version = "v1" });
             });
 
-            services.AddMvc();
 
             // Add application services.
             services.AddTransient<IUserService, UserService>();
@@ -44,6 +43,8 @@ namespace CharityHub.Api
             {
                 cfg.AddProfile(new MappingProfile(provider.GetService<ICryptographyService>()));
             }).CreateMapper());
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -63,13 +64,13 @@ namespace CharityHub.Api
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
 
-            app.UseMvc();
-
             app.UseCors(builder => builder
                 .AllowAnyMethod()
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
                 .AllowCredentials());
+
+            app.UseMvc();
         }
     }
 }
