@@ -5,6 +5,7 @@ import { EventType } from "../../../core/services/charity-service/models/event-t
 @Component({
   selector: 'event',
   templateUrl: './event.html',
+  styleUrls: ['../../charity.scss']
 })
 export class EventComponent {
   @Input() eventModel: EventModel;
