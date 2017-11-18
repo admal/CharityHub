@@ -27,19 +27,74 @@ namespace CharityHub.Services.CharityService
             this.mapper = mapper;
         }
 
-        public IEnumerable<CharityModel> GetCharities()
+        public IEnumerable<CharityModel> GetCharities(int? userId, string name, int? category)
         {
             var charities = _context.Charities
+                .Where(x => name == null || name == "" || x.Name.Contains(name))
+                .Where(x => category == null || x.Category == (CharityCategory)category)
                 .Select(x => new CharityModel()
                 {
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
                     OwnerId = x.OwnerId,
-                    Category = (int)x.Category,
-                    OwnerName = x.Owner.Name
+                    OrganizationType = (int)x.Category,
+                    OwnerName = x.Owner.Name,
+                    IsObserving = userId != null && x.ObservedByUsers.Any(z => z.UserId == userId.Value)
                 });
             return charities;
+        }
+
+        public IEnumerable<CharityModel> GetObservedCharities(int userId)
+        {
+            var charities = _context.Users
+                .Where(x => x.Id == userId)
+                .Include(x => x.ObservedCharities)
+                .SelectMany(x => x.ObservedCharities)
+                .Include(x => x.Charity)
+                .Select(x => x.Charity)
+                .Include(x => x.Owner)
+                .Select(x => new CharityModel()
+                {
+                    Id = x.Id,
+                    OwnerId = x.OwnerId,
+                    Description = x.Description,
+                    Name = x.Name,
+                    OrganizationType = (int)x.Category,
+                    OwnerName = x.Owner.Name
+                })
+                .ToList();
+            return charities;
+        }
+
+        public void ObserveCharity(int userId, int charityId)
+        {
+            var exists = _context.Users_Charities.Any(x => x.UserId == userId && x.CharityId == charityId);
+            if (exists)
+            {
+                return;
+            }
+
+            var observedCharity = new User_Charity()
+            {
+                CharityId = charityId,
+                UserId = userId
+            };
+            _context.Users_Charities.Add(observedCharity);
+            _context.SaveChanges();
+        }
+
+        public void CancelObserveCharity(int userId, int charityId)
+        {
+            var exists = _context.Users_Charities.Any(x => x.UserId == userId && x.CharityId == charityId);
+            if (exists == false)
+            {
+                return;
+            }
+
+            var observedCharity = _context.Users_Charities.First(x => x.UserId == userId && x.CharityId == charityId);
+            _context.Users_Charities.Remove(observedCharity);
+            _context.SaveChanges();
         }
 
         public void AddCharity(CharityAddEditModel model)
@@ -64,7 +119,22 @@ namespace CharityHub.Services.CharityService
         {
             return _context.Charities
                 .Where(x => x.Id == charityId)
-               .Select(x => x.Owner.Name).SingleOrDefault();
+                .Select(x => x.Name).SingleOrDefault();
+		}
+
+        public CharityModel GetCharity(int charityId)
+        {
+            return _context.Charities
+                .Where(x => x.Id == charityId)
+               .Select(x => new CharityModel()
+               {
+                   Id = x.Id,
+                   Name = x.Name,
+                   Description = x.Description,
+                   OwnerId = x.OwnerId,
+                   OrganizationType = (int)x.Category,
+                   OwnerName = x.Owner.Name
+               }).SingleOrDefault();
         }
 
         public IEnumerable<UserModel> GetObserved(int charityId)

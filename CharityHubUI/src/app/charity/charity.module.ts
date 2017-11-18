@@ -29,7 +29,8 @@ import { UserEventComponent } from "./userEvents/userEvent/user-event.component"
     OrganizationListComponent,
     UserEventsComponent,
     UserEventListComponent,
-    UserEventComponent],
+    UserEventComponent
+    ],
   exports: [],
   providers: [],
   schemas: []

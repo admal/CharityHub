@@ -11,6 +11,7 @@ using CharityHub.Domain.Entities;
 using CharityHub.Domain.Models.CharityEventModels;
 using CharityHub.Domain.Models.EventParticipantModels;
 
+
 namespace CharityHub.Services
 {
     public class CharityEventService : ICharityEventService
@@ -39,6 +40,69 @@ namespace CharityHub.Services
             return charityEvent.Id;
         }
 
+        public IEnumerable<object> GetCharityEvents(string name, int? eventCategory)
+        {
+            var events = _context.CharityEvents
+                .Where(x => name == null || name == "" || x.Name.Contains(name))
+                .Where(x => eventCategory == null || x.EventCategory == (EventCategory)eventCategory.Value)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    CharityId = x.CharityId,
+                    EventCategory = x.EventCategory
+                })
+                .ToList();
+            return events;
+        }
+
+        public IEnumerable<object> GetUserCharityEvents(int userId, bool isSigned)
+        {
+            var events = _context.Users
+                .Include(x => x.Events)
+                .Where(x => x.Id == userId)
+                .SelectMany(x => x.Events)
+                .Where(x => (isSigned == false && x.IsAccepted == null) || (isSigned && x.IsAccepted.Value))
+                .Include(x => x.CharityEvent)
+                .Select(x => x.CharityEvent)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    CharityId = x.CharityId,
+                    EventCategory = x.EventCategory
+                })
+                .ToList();
+            return events;
+        }
+
+        public IEnumerable<object> GetOrganizationCharityEvents(int charityId, int ownerId)
+        {
+            var events = _context.Users
+                .Include(x => x.Events)
+                .Where(x => x.CharityId == charityId && x.Id == ownerId)
+                .SelectMany(x => x.Events)
+                .Include(x => x.CharityEvent)
+                .Select(x => x.CharityEvent)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    CharityId = x.CharityId,
+                    EventCategory = x.EventCategory
+                })
+                .ToList();
+            return events;
+        }
 
         public CharityEventModel Get(int id)
         {
@@ -59,31 +123,7 @@ namespace CharityHub.Services
 
             return charityEventModel;
         }
-
-        public ICollection<CharityEventModel> GetAllForCharity(int charityId)
-        {
-            ICollection<CharityEvent> charityEvents = (from e in _context.CharityEvents
-                                                       where e.CharityId == charityId
-                                                       select e).ToList();
-
-            var chairtyEventModels = _mapper.Map<ICollection<CharityEvent>, ICollection<CharityEventModel>>(charityEvents);
-
-            return chairtyEventModels;
-        }
-
-        public ICollection<CharityEventModel> GetAllForUsers(int userId)
-        {
-            //ICollection<CharityEvent> charityEvents = (from e in context.CharityEvents
-            //                                           where e.Participants
-            //                                           select e).ToList();
-
-            //var chairtyEventModels = mapper.Map<ICollection<CharityEvent>, ICollection<CharityEventModel>>(charityEvents);
-
-            //return chairtyEventModels;
-
-            throw new NotImplementedException();
-        }
-
+        
         public void UserSignInCharityEvent(int userId, int charityEventId)
         {
             var exists = _context.EventParticipants.Any(x => x.UserId == userId && x.CharityEventId == charityEventId);
