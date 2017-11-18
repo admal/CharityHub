@@ -10,8 +10,8 @@ namespace CharityHub.Domain.Entities
         public virtual string Description { get; set; }
         public virtual DateTime CreatedDate { get; set; }
         public virtual CharityCategory Category { get; set; }
-
-        [ForeignKey("UserId")]
+        
+        [ForeignKey("OwnerId")]
         public virtual User Owner { get; set; }
         public virtual int OwnerId { get; set; }
 
