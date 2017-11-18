@@ -28,10 +28,10 @@ namespace CharityHub.Domain
             }
 
             var users = new User[]{
-                new User(){ Name = "Adam", Surname = "Malewski", EmailAddress = "adam.malewski@wp.pl", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
-                new User(){ Name = "Patryk", Surname = "Wołosz", EmailAddress = "wolosz.patryk@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
-                new User(){ Name = "Krystian", Surname = "Rytel", EmailAddress = "krystian.rytel@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
-                new User(){ Name = "Damian", Surname = "Dmochowski", EmailAddress = "dmochowskidd@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
+                new User(){ Name = "Adam", Surname = "Malewski", EmailAddress = "adam.malewski@wp.pl", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"},
+                new User(){ Name = "Patryk", Surname = "Wołosz", EmailAddress = "wolosz.patryk@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"},
+                new User(){ Name = "Krystian", Surname = "Rytel", EmailAddress = "krystian.rytel@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"},
+                new User(){ Name = "Damian", Surname = "Dmochowski", EmailAddress = "dmochowskidd@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"},
             };
 
             foreach (var s in users)
@@ -54,18 +54,18 @@ namespace CharityHub.Domain
             {
                 new Charity()
                 {
-                    Name = "Testowy Adama",
-                    Description = "Opis",
-                    Category = CharityCategory.Profit,
+                    Name = "Organizacja zbierania jedzenia dla bezdomnych",
+                    Description = "Celem organizacji jest zbieranie jedzenia dla bezdomnych. Jedzenie zbieramy po przez zbiórki w miejscach publicznych lub innych",
+                    Category = CharityCategory.NonProfit,
                     CreatedDate = DateTime.Now,
                     Owner = adam,
                     OwnerId = adam.Id
                 },
                 new Charity()
                 {
-                    Name = "Testowy Rycha",
-                    Description = "Opis2",
-                    Category = CharityCategory.NonProfit,
+                    Name = "Organizacja zbierania pieniędzy dla dzieci",
+                    Description = "Celem organizacji jest zbieranie pieniędzy które będą przekazywane najbiedniejszych dzieci w naszej okolicy.",
+                    Category = CharityCategory.Profit,
                     CreatedDate = DateTime.Now,
                     Owner = rychu,
                     OwnerId = rychu.Id
@@ -89,35 +89,35 @@ namespace CharityHub.Domain
             {
                 return;
             }
-            var charityTestowyRychu = context.Charities.First(x => x.Name == "Testowy Rycha");
-            var charityTestowyAdam = context.Charities.First(x => x.Name == "Testowy Adama");
+            var charityAdam = context.Charities.First(x => x.Name == "Organizacja zbierania jedzenia dla bezdomnych");
+            var charityRychu = context.Charities.First(x => x.Name == "Organizacja zbierania pieniędzy dla dzieci");
 
             var charityEvents = new CharityEvent[]
             {
                 new CharityEvent()
                 {
-                    Name = "Zmieranie pieniędzy dla Jana",
-                    Charity = charityTestowyRychu,
+                    Name = "Zmieranie jedzenia dla Jana",
+                    Charity = charityAdam,
                     CreatedDate = new DateTime(2017,11,18),
                     StartDate = new DateTime(2017,11,19),
                     EndDate = new DateTime(2017,11,21),
-                    Description = "Jan potrzebuję dużo pieniędzy",
-                    EventCategory = EventCategory.Fundraising,
+                    Description = "Jan (Lat 56) jest bezdomnym od 34 lat. Jego życie nie ułożyło się dobrze. Możemy mu pomóc. Zapraszamy",
+                    EventCategory = EventCategory.FoodCollection,
                 },
                  new CharityEvent()
                 {
-                    Name = "Zmieranie pieniędzy dla Jana 2",
-                    Charity = charityTestowyRychu,
+                    Name = "Zmieranie jedznia dla noclegowni",
+                    Charity = charityAdam,
                     CreatedDate = new DateTime(2017,11,18),
                     StartDate = new DateTime(2017,11,22),
                     EndDate = new DateTime(2017,11,24),
-                    Description = "Jan potrzebuję dużo pieniędzy",
-                    EventCategory = EventCategory.Fundraising,
+                    Description = "Noclegownia z Ursynowa ma ograniczony budżet. Jakość posiłków nie jeset tam najlepsza. Zbieramy podstawowe produkty takie jak mąka, cukier itp.",
+                    EventCategory = EventCategory.FoodCollection,
                 },
                 new CharityEvent()
                 {
                     Name = "Zmieranie jedzenia dla Jana",
-                    Charity = charityTestowyAdam,
+                    Charity = charityRychu,
                     CreatedDate = new DateTime(2017,11,18),
                     StartDate = new DateTime(2017,11,19),
                     EndDate = new DateTime(2017,11,21),
@@ -127,7 +127,7 @@ namespace CharityHub.Domain
                 new CharityEvent()
                 {
                     Name = "Zmieranie jedzenia dla Jana 2",
-                    Charity = charityTestowyAdam,
+                    Charity = charityRychu,
                     CreatedDate = new DateTime(2017,11,18),
                     StartDate = new DateTime(2017,11,20),
                     EndDate = new DateTime(2017,11,21),
