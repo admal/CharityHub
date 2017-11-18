@@ -221,9 +221,7 @@ namespace CharityHub.Domain
                 new User_Charity(){ CharityId = 1, UserId = 2},
                 new User_Charity(){ CharityId = 1, UserId = 4},
                 new User_Charity(){ CharityId = 2, UserId = 2},
-                new User_Charity(){ CharityId = 2, UserId = 3},
-                new User_Charity(){ CharityId = 3, UserId = 2},
-                new User_Charity(){ CharityId = 3, UserId = 1},
+                new User_Charity(){ CharityId = 2, UserId = 3}
             };
 
             foreach (var s in user_Charities)
