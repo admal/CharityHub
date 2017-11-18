@@ -4,7 +4,7 @@ import { EventModel } from "../../../core/services/charity-service/models/event-
 
 @Component({
   selector: 'event-list', 
-  templateUrl: './event-list.html'
+  templateUrl: './event-list.html',
   styleUrls: ['../../charity.scss']
 })
 export class EventListComponent {

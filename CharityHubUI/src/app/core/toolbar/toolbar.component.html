@@ -1,49 +1,52 @@
 <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-    <div class="container">
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+  <div class="container">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" [attr.aria-expanded]="!isCollapsed" [ngClass]="{'collapsed': isCollapsed}"
             (click)="toggleCollapse()" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand">CharityHub</a>
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand">CharityHub</a>
 
-        <div class="collapse navbar-collapse" [ngClass]="{'show': isCollapsed}" [attr.aria-expanded]="!isCollapsed" id="navbarSupportedContent">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" routerLink="charity/organizations">Organizacje</a>
-                </li>
-                <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" routerLink="charity/list">Wydarzenia</a>
-                </li>
-                <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" routerLink="charity/myCharity">Moja organizacja</a>
-                </li>
-                <li *ngIf="userService.isLoggedIn() === false" ngbDropdown class="dropdown">
-                    <button class="button-dropdown" id="dropdownBasic2" ngbDropdownToggle>
-                        <mat-icon>account_circle</mat-icon>
-                        Konto
-                    </button>
-                    <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic2">
-                        <a routerLink="user/login" class="dropdown-item">
-                            Zaloguj
-                        </a>
-                        <a routerLink="user/register" class="dropdown-item">
-                            Rejestracja
-                        </a>
-                    </div>
-                </li>
-                <li *ngIf="userService.isLoggedIn()" ngbDropdown class="dropdown">
-                    <button class="button-dropdown" id="dropdownBasic2" ngbDropdownToggle>
-                        <mat-icon>account_circle</mat-icon>
-                        {{getUserName()}}
-                    </button> 
-                    <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic2">
-                        <a (click)="logout()" class="dropdown-item">
-                            Wyloguj 
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </div>
+    <div class="collapse navbar-collapse" [ngClass]="{'show': isCollapsed}" [attr.aria-expanded]="!isCollapsed" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="charity/news">Wiadomości</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="charity/organizations">Organizacje</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="charity/list">Wydarzenia</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="charity/myCharity">Moja organizacja</a>
+        </li>
+        <li *ngIf="userService.isLoggedIn() === false" ngbDropdown class="dropdown">
+          <button class="button-dropdown" id="dropdownBasic2" ngbDropdownToggle>
+            <mat-icon>account_circle</mat-icon>
+            Konto
+          </button>
+          <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic2">
+            <a routerLink="user/login" class="dropdown-item">
+              Zaloguj
+            </a>
+            <a routerLink="user/register" class="dropdown-item">
+              Rejestracja
+            </a>
+          </div>
+        </li>
+        <li *ngIf="userService.isLoggedIn()" ngbDropdown class="dropdown">
+          <button class="button-dropdown" id="dropdownBasic2" ngbDropdownToggle>
+            <mat-icon>account_circle</mat-icon>
+            {{getUserName()}}
+          </button>
+          <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic2">
+            <a (click)="logout()" class="dropdown-item">
+              Wyloguj
+            </a>
+          </div>
+        </li>
+      </ul>
     </div>
+  </div>
 </nav>
