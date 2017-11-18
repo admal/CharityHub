@@ -7,7 +7,7 @@ import { EventModel } from "../../../core/services/charity-service/models/event-
   templateUrl: './event-list.html',
   styleUrls: ['../../charity.scss']
 })
-export class EventListComponent { 
+export class EventListComponent {
   userEvents: EventModel[];
 
   constructor(private readonly myCharityService: MyCharityService) {

@@ -9,6 +9,9 @@ import { NewsComponent } from "./news/news.component";
 import { NewsDetailsComponent } from "./news/news-details/news-details.components";
 import { OrganizationComponent } from './organizations/organization/organization.component';
 import { OrganizationListComponent } from './organizations/organizationList/organization-list.component';
+import { UserEventsComponent } from "./userEvents/user-events.component";
+import { UserEventListComponent } from "./userEvents/userEventList/user-event-list.component";
+import { UserEventComponent } from "./userEvents/userEvent/user-event.component";
 
 @NgModule({
   imports: [
@@ -23,7 +26,10 @@ import { OrganizationListComponent } from './organizations/organizationList/orga
     NewsComponent,
     NewsDetailsComponent,
     OrganizationComponent,
-    OrganizationListComponent],
+    OrganizationListComponent,
+    UserEventsComponent,
+    UserEventListComponent,
+    UserEventComponent],
   exports: [],
   providers: [],
   schemas: []
