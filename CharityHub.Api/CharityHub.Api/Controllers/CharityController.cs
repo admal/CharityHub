@@ -26,5 +26,29 @@ namespace CharityHub.Api.Controllers
             var charities = _charityService.GetCharities();
             return Ok(charities);
         }
+
+        [HttpGet]
+        [Route("GetObserved")]
+        public IActionResult GetObservedCharities(int userId)
+        {
+            var charities = _charityService.GetObservedCharities(userId);
+            return Json(charities);
+        }
+
+        [HttpPost]
+        [Route("Observe")]
+        public IActionResult ObserveCharity(int userId, int charityId)
+        {
+            _charityService.ObserveCharity(userId, charityId);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("CancelObserve")]
+        public IActionResult CancelObserveCharity(int userId, int charityId)
+        {
+            _charityService.CancelObserveCharity(userId, charityId);
+            return Ok();
+        }
     }
 }

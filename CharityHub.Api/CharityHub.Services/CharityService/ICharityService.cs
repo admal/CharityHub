@@ -8,5 +8,8 @@ namespace CharityHub.Services.CharityService
         void AddCharity(CharityAddEditModel model);
         IEnumerable<CharityModel> GetCharities();
         CharityModel GetCharity(int charityId);
+        void ObserveCharity(int userId, int charityId);
+        void CancelObserveCharity(int userId, int charityId);
+        IEnumerable<CharityModel> GetObservedCharities(int userId);
     }
 }
