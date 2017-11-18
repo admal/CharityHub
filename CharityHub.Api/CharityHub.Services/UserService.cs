@@ -48,13 +48,12 @@ namespace CharityHub.Services
             return userModel;
         }
 
-        public User GetUser(string login, string passwordHash)
+        public UserModel GetUser(string login, string passwordHash)
         {
             var user = (from u in context.Users
                         where u.EmailAddress == login && u.PasswordHash == passwordHash
                         select u).SingleOrDefault();
-
-            return user;
+            return GetUser(user.Id);
         }
 
         private bool Exists(string emailAddress)
