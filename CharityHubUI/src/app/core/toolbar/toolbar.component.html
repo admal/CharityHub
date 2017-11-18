@@ -16,9 +16,9 @@
                     <a class="nav-link" routerLink="charity/list">Wydarzenia</a>
                 </li>
                 <li class="nav-item" routerLinkActive="active">
-                  <a class="nav-link" routerLink="charity/myCharity">Moja organizacja</a>
+                    <a class="nav-link" routerLink="charity/myCharity">Moja organizacja</a>
                 </li>
-                <li ngbDropdown class="dropdown">
+                <li *ngIf="userService.isLoggedIn() === false" ngbDropdown class="dropdown">
                     <button class="button-dropdown" id="dropdownBasic2" ngbDropdownToggle>
                         <mat-icon>account_circle</mat-icon>
                         Konto
@@ -29,6 +29,17 @@
                         </a>
                         <a routerLink="user/register" class="dropdown-item">
                             Rejestracja
+                        </a>
+                    </div>
+                </li>
+                <li *ngIf="userService.isLoggedIn()" ngbDropdown class="dropdown">
+                    <button class="button-dropdown" id="dropdownBasic2" ngbDropdownToggle>
+                        <mat-icon>account_circle</mat-icon>
+                        {{getUserName()}}
+                    </button> 
+                    <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="dropdownBasic2">
+                        <a (click)="logout()" class="dropdown-item">
+                            Wyloguj 
                         </a>
                     </div>
                 </li>

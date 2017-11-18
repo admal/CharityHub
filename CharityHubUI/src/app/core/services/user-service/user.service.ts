@@ -9,20 +9,28 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class UserService {
     private apiRoot = 'http://localhost:5000/api/User/';
-    private user: User;
+    public user: User;
+    private headers: HttpHeaders;
 
     constructor(private http: HttpClient) {
+        this.headers = new HttpHeaders();
+        this.headers.append('Accept', 'application/json');
+        this.headers.append('Access-Control-Allow-Origin', '*');
+        this.headers.append('Access-Control-Allow-Headers', '*');
     }
 
     isLoggedIn() {
-        return this.user !== null;
+        return this.user !== null && typeof this.user !== 'undefined';
     }
 
     login(loginModel: LoginModel) {
-        return this.http.post<User>(`${this.apiRoot}/SignIn`, loginModel) 
+        return this.http.post<User>(`${this.apiRoot}SignIn`, loginModel, { headers: this.headers }) 
             .toPromise()
             .then(response => { 
-                this.user = response;
+                this.user = new User();
+                this.user.id = response.id;
+                this.user.name = response.name;
+                this.user.surname = response.surname;
             });
     }
 
@@ -31,7 +39,7 @@ export class UserService {
     }
 
     registerUser(user: RegisterModel) {
-        return this.http.post(`${this.apiRoot}/SignIn`, user, { responseType: 'text' as 'json' })
+        return this.http.post(`${this.apiRoot}SignUp`, user, { responseType: 'text' as 'json' })
             .toPromise(); 
     }
 }

@@ -1,5 +1,6 @@
 export class User {
-    Id: number;
+    id: number;
     name: string;
     surname: string;
+    organizationId?: number;
 }

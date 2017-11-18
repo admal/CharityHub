@@ -33,7 +33,6 @@ nav {
     line-height: 40px;
 }
 .active {
-    border-bottom: 3px solid $activeColor;
     background-color: rgba(63, 81, 181,.1);
 }
 .dropdown-item.active, .dropdown-item:active {

@@ -9,7 +9,7 @@ namespace CharityHub.Domain.Entities
     public class User : Entity
     {
         public virtual string Name { get; set; }
-        public virtual string LastName { get; set; }
+        public virtual string Surname { get; set; }
         //public virtual DateTime? BirthDate { get; set; }
         public virtual string EmailAddress { get; set; }
         public virtual string PasswordHash { get; set; }

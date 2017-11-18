@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 namespace CharityHub.Api.Controllers
 {
     [Route("api/[controller]")]
+    [Produces("application/json")]
     public class UserController : Controller
     {
         private IUserService userService;
