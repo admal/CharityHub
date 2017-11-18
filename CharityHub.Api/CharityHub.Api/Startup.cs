@@ -64,6 +64,12 @@ namespace CharityHub.Api
             });
 
             app.UseMvc();
+
+            app.UseCors(builder => builder
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowCredentials());
         }
     }
 }
