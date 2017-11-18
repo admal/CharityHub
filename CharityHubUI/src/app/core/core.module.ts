@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { MatIconModule } from '@angular/material';
 
 @NgModule({
     imports: [
@@ -12,10 +14,11 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         RouterModule,
         FormsModule,
         NgbModule.forRoot(),
-        HttpClientModule
+        HttpClientModule,
+        MatIconModule
     ],
-    declarations: [],
-    exports: [],
+    declarations: [ToolbarComponent],
+    exports: [ToolbarComponent],
     providers: [],
     schemas: [NO_ERRORS_SCHEMA]
 })

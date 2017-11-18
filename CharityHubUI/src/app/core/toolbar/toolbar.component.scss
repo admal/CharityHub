@@ -1,0 +1,45 @@
+$activeColor: #ededed;
+$fontColor: #141414;
+
+nav {
+    padding: 0 1rem;
+    background-color: #ededed;
+
+    .nav-link, .nav-link:hover {
+        color: $fontColor;
+    }
+}
+.nav-dropdown {
+    height: 40px;
+}
+.button-dropdown {
+    background: none !important;
+    color: inherit;
+    border: none;
+    padding: .5em .1em;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit !important;
+    color: $fontColor;
+
+    &:hover {
+        color: $fontColor;
+    }
+}
+.dropdown-menu {
+    left: -70px !important;
+}
+.navbar-nav > li > a, button.button-dropdown {
+    line-height: 40px;
+}
+.active {
+    border-bottom: 3px solid $activeColor;
+    background-color: rgba(63, 81, 181,.1);
+}
+.dropdown-item.active, .dropdown-item:active {
+    background-color: $activeColor;
+}
+.mat-icon {
+    position: relative;
+    top: 6px;
+}
