@@ -1,12 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { UserService } from '../../core/services/user-service/user.service';
 
 @Component({
-  selector: 'user-events',
+  selector: 'user-events', 
   templateUrl: './user-events.html',
-  styleUrls: ['../charity.scss']
+  styleUrls: ['./user-events.component.scss'],
+  encapsulation: ViewEncapsulation.None 
 })
 export class UserEventsComponent {
 
-  constructor() {
+  constructor(
+    public readonly userService: UserService
+  ) {
   }
 }

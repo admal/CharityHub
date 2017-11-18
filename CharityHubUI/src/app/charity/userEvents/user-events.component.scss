@@ -1,0 +1,12 @@
+.mat-tab-header {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.mat-tab-label {
+    display: flex;
+    flex-grow: 1; 
+    max-width: 300px;
+}
+.mat-tab-header-pagination {
+    display: none !important;
+}

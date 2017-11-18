@@ -3,8 +3,7 @@ import { NgForm } from "@angular/forms/src/forms";
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
 import { MyCharityService } from '../../../core/services/charity-service/my-charity.service';
 import { UserService } from '../../../core/services/user-service/user.service';
-import { MatSnackBar } from '@angular/material';
-import { AppComponent } from '../../../app.component';
+import { MatSnackBar, MatSnackBarConfig } from '@angular/material';
 
 @Component({
   selector: '<new-event></new-event>',
@@ -24,12 +23,14 @@ export class NewEventComponent {
 
   onSubmit(form: NgForm) {
       this.newEventModel.charityId = this.userService.user.organizationId;
+      
       this.myCharityService.addEvent(this.newEventModel)
         .then(() => {
           this.newEventModel = new EventModel();
-          this.snackBar.openFromComponent(AppComponent, {
-            duration: 1000,
-          });
+          let config = new MatSnackBarConfig();
+          config.duration = 2000;
+          this.snackBar.open('Wydarzenie zostało dodane', undefined, config);
+          form.reset();
         });
   }
 
