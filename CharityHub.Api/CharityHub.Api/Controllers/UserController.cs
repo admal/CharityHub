@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CharityHub.Domain.Models.Charity;
+using CharityHub.Services.CharityService;
 
 namespace CharityHub.Api.Controllers
 {
@@ -12,15 +14,18 @@ namespace CharityHub.Api.Controllers
     [Produces("application/json")]
     public class UserController : Controller
     {
-        private IUserService userService;
-        private ICryptographyService cryptographyService;
+        private readonly IUserService _userService;
+        private readonly ICryptographyService _cryptographyService;
+        private ICharityService _charityService;
 
         public UserController(
             IUserService userService, 
-            ICryptographyService cryptographyService)
+            ICryptographyService cryptographyService, 
+            ICharityService charityService)
         {
-            this.userService = userService;
-            this.cryptographyService = cryptographyService;
+            this._userService = userService;
+            this._cryptographyService = cryptographyService;
+            _charityService = charityService;
         }
 
         [HttpPost]
@@ -32,10 +37,9 @@ namespace CharityHub.Api.Controllers
                 BadRequest();
             }
 
-            string passwordHash = cryptographyService.GetHashString(inputModel.Password);
+            string passwordHash = _cryptographyService.GetHashString(inputModel.Password);
 
-            var user = userService.GetUser(inputModel.EmailAddress, passwordHash);
-
+            var user = _userService.GetUser(inputModel.EmailAddress, passwordHash);
             if (user == null)
             {
                 NotFound("User not found");
@@ -53,13 +57,22 @@ namespace CharityHub.Api.Controllers
                 BadRequest();
             }
 
-            var user = userService.Add(inputModel);
+            var user = _userService.Add(inputModel);
+            if (inputModel.AddOrganisation)
+            {
+                _charityService.AddCharity(new CharityAddEditModel()
+                {
+                    OwnerId = user.Id,
+                    Name = inputModel.OrganizationName,
+                    Description = inputModel.OrganizationDescription,
+                    Category = inputModel.OrganizationType
+                });
+            }
 
-            if(user == null)
+            if (user == null)
             {
                 BadRequest("Cannot add to db");
             }
-
             return Ok();
         }
     }

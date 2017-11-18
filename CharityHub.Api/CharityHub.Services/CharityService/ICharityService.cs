@@ -5,7 +5,7 @@ namespace CharityHub.Services.CharityService
 {
     public interface ICharityService
     {
-        void AddCharity(CharityModel model);
+        void AddCharity(CharityAddEditModel model);
         IEnumerable<CharityModel> GetCharities();
     }
 }
