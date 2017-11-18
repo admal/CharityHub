@@ -16,18 +16,15 @@ namespace CharityHub.Api.Controllers
     {
         private IEmailNotificationService emailNotificationService;
         private ICharityEventService charityEventService;
-        private IUserService userService;
         private ICharityService charityService;
 
         public CharityEventController(
             IEmailNotificationService emailNotificationService,
             ICharityEventService charityEventService,
-            IUserService userService,
             ICharityService charityService)
         {
             this.emailNotificationService = emailNotificationService;
             this.charityEventService = charityEventService;
-            this.userService = userService;
             this.charityService = charityService;
         }
 
@@ -83,40 +80,7 @@ namespace CharityHub.Api.Controllers
 
             return Ok();
         }
-
-        [HttpPost]
-        [Route("SendEmailEventNotification")]
-        public IActionResult SendEmailEventNotification([FromBody]SendEmailEventNotificationInputModel inputModel)
-        {
-            var charityEvent = charityEventService.Get(inputModel.CharityEventId);
-            string charityName = charityService.GetCharityName(charityEvent.CharityId);
-
-            foreach (var p in charityEvent.Participants)
-            {
-                if (p.IsAccepted != true)
-                {
-                    continue;
-                }
-
-                var user = userService.GetUser(p.UserId);
-
-                var sendEmailEventWasAddedModel = new SendEmailEventNotificationModel()
-                {
-                    EmailAddress = user.EmailAddress,
-                    Content = inputModel.Content,
-                    CharityEventName = charityEvent.Name,
-                    CharityName = charityName,
-                    Subject = inputModel.Subject
-                };
-
-                emailNotificationService.SendEmailEventNotification(sendEmailEventWasAddedModel);
-            }
-
-            charityEventService.AddEventNotification(inputModel);
-
-            return Ok();
-        }
-
+        
         [HttpPost]
         [Route("SignInEvent")]
         public IActionResult SignInCharityEvent(UserParticipateEventModel model)

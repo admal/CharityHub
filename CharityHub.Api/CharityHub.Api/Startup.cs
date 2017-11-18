@@ -9,6 +9,7 @@ using CharityHub.Domain;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using CharityHub.Services.CharityService;
+using CharityHub.Services.EventNotificationService;
 
 namespace CharityHub.Api
 {
@@ -42,6 +43,7 @@ namespace CharityHub.Api
             services.AddTransient<ICharityService, CharityService>();
             services.AddTransient<ICharityEventService, CharityEventService>();
             services.AddTransient<IEmailNotificationService, EmailNotificationService>();
+            services.AddTransient<IEventNotificationQueryService, EventNotificationQueryService>();
 
             services.AddSingleton(provider => new MapperConfiguration(cfg =>
             {
