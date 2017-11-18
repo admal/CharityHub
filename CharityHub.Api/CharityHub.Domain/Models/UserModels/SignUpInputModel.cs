@@ -7,14 +7,15 @@ namespace CharityHub.Domain.Models.UserModels
 {
     public class SignUpInputModel
     {
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public DateTime BornDate { get; set; }
         [EmailAddress]
         public string EmailAddress { get; set; }
+        public string Password { get; set; }
+        public string Name { get; set; }
+        public string LastName { get; set; }
+        //public DateTime? BirthDate { get; set; }
         /// <summary>
         /// Male, Female
         /// </summary>
-        public string Sex { get; set; }
+        //public string Sex { get; set; } 
     }
 }
