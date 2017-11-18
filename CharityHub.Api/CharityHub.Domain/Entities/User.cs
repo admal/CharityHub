@@ -1,6 +1,7 @@
 ﻿using CharityHub.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace CharityHub.Domain.Entities
@@ -15,8 +16,9 @@ namespace CharityHub.Domain.Entities
         //public virtual Sex Sex { get; set; }
 
 
-        public virtual int? CharityId { get; set; }
+        [ForeignKey("CharityId")]
         public virtual Charity Charity { get; set; }
+        public virtual int? CharityId { get; set; }
 
         public virtual ICollection<User_Charity> ObservedCharities { get; set; }
         public virtual ICollection<EventParticipant> Events { get; set; }

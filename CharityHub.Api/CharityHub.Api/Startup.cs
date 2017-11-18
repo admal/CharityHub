@@ -8,6 +8,7 @@ using CharityHub.Services;
 using CharityHub.Domain;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using CharityHub.Services.CharityService;
 
 namespace CharityHub.Api
 {
@@ -38,6 +39,7 @@ namespace CharityHub.Api
             // Add application services.
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptographyService, CryptographyService>();
+            services.AddTransient<ICharityService, CharityService>();
 
             services.AddSingleton(provider => new MapperConfiguration(cfg =>
             {

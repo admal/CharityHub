@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'my-charity',
   templateUrl: './my-charity.html',
-  styleUrls: ['../charity.scss']
+  styleUrls: ['./my-charity.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class MyCharityComponent {
 }
