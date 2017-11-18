@@ -17,7 +17,7 @@ namespace CharityHub.Services.CharityService
             _context = context;
         }
 
-        public IEnumerable<CharityModel> GetCharities(string name, int? category)
+        public IEnumerable<CharityModel> GetCharities(int? userId, string name, int? category)
         {
             var charities = _context.Charities
                 .Where(x => name == null || name == "" || x.Name.Contains(name))
@@ -29,7 +29,8 @@ namespace CharityHub.Services.CharityService
                     Description = x.Description,
                     OwnerId = x.OwnerId,
                     OrganizationType = (int)x.Category,
-                    OwnerName = x.Owner.Name
+                    OwnerName = x.Owner.Name,
+                    IsObserving = userId != null && x.ObservedByUsers.Any(z => z.UserId == userId.Value)
                 });
             return charities;
         }

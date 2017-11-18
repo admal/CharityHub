@@ -12,5 +12,6 @@ namespace CharityHub.Domain.Models.Charity
         public int OrganizationType { get; set; }
         public int OwnerId { get; set; }
         public string OwnerName { get; set; }
+        public bool IsObserving { get; set; }
     }
 }
