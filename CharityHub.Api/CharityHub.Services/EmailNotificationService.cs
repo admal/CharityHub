@@ -18,18 +18,16 @@ namespace CharityHub.Services
                 msg.From = new MailAddress("GymRegressTeam@gmail.com");
                 msg.To.Add(inputModel.EmailAddress);
                 msg.IsBodyHtml = true;
-                msg.Subject = "Organizacja " + inputModel.OrganizationName + " zorganizowała wydarzenie " + inputModel.EventName;
+                msg.Subject = "Organizacja " + inputModel.CharityName + " zorganizowała wydarzenie " + inputModel.CharityEventName;
 
                 using (StreamReader reader = File.OpenText(AppDomain.CurrentDomain.BaseDirectory
                     + @"Assets\EventNotification.html"))
                 {
                     string mailText = reader.ReadToEnd()
-                        .Replace("_PageUrl_", inputModel.PageUrl)
-                        .Replace("_Organization_", inputModel.OrganizationName)
-                        .Replace("_EventName_", inputModel.EventName)
-                        .Replace("_StartDate_", inputModel.StartDate.ToString(@"MM\/dd\/yyyy HH:mm"))
-                        .Replace("_EndDate_", inputModel.EndDate.ToString(@"MM\/dd\/yyyy HH:mm"))    
-                        .Replace("_Place_", inputModel.Place);
+                        .Replace("_Organization_", inputModel.CharityName)
+                        .Replace("_EventName_", inputModel.CharityEventName)
+                        .Replace("_StartDate_", inputModel.StartDate.ToString(@"MM\/dd\/yyyy"))
+                        .Replace("_EndDate_", inputModel.EndDate.ToString(@"MM\/dd\/yyyy")); 
                     msg.Body = mailText;
                 }
 

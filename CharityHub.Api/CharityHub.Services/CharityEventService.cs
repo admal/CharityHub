@@ -6,8 +6,10 @@ using CharityHub.Domain.Models.EventModels;
 using AutoMapper;
 using System.Linq;
 using CharityHub.Domain;
+using Microsoft.EntityFrameworkCore;
 using CharityHub.Domain.Entities;
 using CharityHub.Domain.Models.CharityEventModels;
+using CharityHub.Domain.Models.EventParticipantModels;
 
 namespace CharityHub.Services
 {
@@ -44,6 +46,14 @@ namespace CharityHub.Services
                 return null;
 
             var charityEventModel = _mapper.Map<CharityEvent, CharityEventModel>(charityEvent);
+
+            ICollection<EventParticipant> participants = (from p in _context.EventParticipants
+                                                          where p.CharityEventId == id
+                                                          select p)
+                                                          .Include(x => x.User)
+                                                          .ToList(); 
+
+            charityEventModel.Participants = _mapper.Map<ICollection<EventParticipant>, ICollection<EventParticipantModel>>(participants);
 
             return charityEventModel;
         }

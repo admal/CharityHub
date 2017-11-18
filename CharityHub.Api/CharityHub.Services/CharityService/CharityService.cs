@@ -48,5 +48,20 @@ namespace CharityHub.Services.CharityService
             user.Charity = newCharity;
             _context.SaveChanges();
         }
+
+        public CharityModel GetCharity(int charityId)
+        {
+            return _context.Charities
+                .Where(x => x.Id == charityId)
+               .Select(x => new CharityModel()
+               {
+                   Id = x.Id,
+                   Name = x.Name,
+                   Description = x.Description,
+                   OwnerId = x.OwnerId,
+                   Category = (int)x.Category,
+                   OwnerName = x.Owner.Name
+               }).SingleOrDefault();
+        }
     }
 }

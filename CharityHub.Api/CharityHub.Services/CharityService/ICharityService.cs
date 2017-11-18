@@ -7,5 +7,6 @@ namespace CharityHub.Services.CharityService
     {
         void AddCharity(CharityAddEditModel model);
         IEnumerable<CharityModel> GetCharities();
+        CharityModel GetCharity(int charityId);
     }
 }

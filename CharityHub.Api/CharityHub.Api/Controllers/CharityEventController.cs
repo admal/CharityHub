@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CharityHub.Domain.Models.UserModels;
+using CharityHub.Services.CharityService;
 
 namespace CharityHub.Api.Controllers
 {
@@ -15,13 +16,19 @@ namespace CharityHub.Api.Controllers
     {
         private IEmailNotificationService emailNotificationService;
         private ICharityEventService charityEventService;
+        private IUserService userService;
+        private ICharityService charityService;
 
         public CharityEventController(
             IEmailNotificationService emailNotificationService,
-            ICharityEventService charityEventService)
+            ICharityEventService charityEventService,
+            IUserService userService,
+            ICharityService charityService)
         {
             this.emailNotificationService = emailNotificationService;
             this.charityEventService = charityEventService;
+            this.userService = userService;
+            this.charityService = charityService;
         }
 
         [HttpGet]
@@ -69,21 +76,43 @@ namespace CharityHub.Api.Controllers
         [HttpPost]
         public IActionResult Add([FromBody]CharityEventInputModel inputModel)
         {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
+
             charityEventService.Add(inputModel);
 
             return Ok();
         }
 
-        /// <summary>
-        /// TODO: Zmienić na tylko eventId
-        /// </summary>
-        /// <param name="inputModel"></param>
-        /// <returns></returns>
         [HttpPost]
-        [Route("SendEmailNotification")]
-        public IActionResult SendEmailNotification([FromBody]SendEmailNotificationInputModel inputModel)
+        [Route("SendEmailNotification/{id}")]
+        public IActionResult SendEmailNotification(int id)
         {
-            emailNotificationService.SendEmailEventWasAdded(inputModel);
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
+
+            var charityEvent = charityEventService.Get(id);
+
+            foreach(var p in charityEvent.Participants)
+            {
+                var user = userService.GetUser(p.UserId);
+                var charity = charityService.GetCharity(charityEvent.CharityId);
+
+                SendEmailNotificationInputModel inputModel = new SendEmailNotificationInputModel()
+                {
+                    EndDate = charityEvent.EndDate,
+                    StartDate = charityEvent.StartDate,
+                    CharityEventName = charityEvent.Name,
+                    EmailAddress = user.EmailAddress,
+                    CharityName = charity.Name
+                };
+
+                emailNotificationService.SendEmailEventWasAdded(inputModel);
+            }
 
             return Ok();
         }

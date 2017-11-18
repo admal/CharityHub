@@ -16,6 +16,7 @@ namespace CharityHub.Domain
             InitUsers(context);
             InitCharities(context);
             InitCharityEvents(context);
+            InitEventParticipants(context);
         }
         
         private static void InitUsers(CharityHubContext context)
@@ -87,9 +88,6 @@ namespace CharityHub.Domain
             {
                 return;
             }
-            var adam = context.Users.First(x => x.Name == "Adam");
-            var rychu = context.Users.First(x => x.Name == "Damian");
-
             var charityTestowyRychu = context.Charities.First(x => x.Name == "Testowy Rycha");
             var charityTestowyAdam = context.Charities.First(x => x.Name == "Testowy Adama");
 
@@ -140,6 +138,57 @@ namespace CharityHub.Domain
             foreach (var s in charityEvents)
             {
                 context.CharityEvents.Add(s);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InitEventParticipants(CharityHubContext context)
+        {
+            if (context.EventParticipants.Any())
+            {
+                return;
+            }
+            var adam = context.Users.First(x => x.Name == "Adam");
+            var rychu = context.Users.First(x => x.Name == "Damian");
+
+            var dlaJanaPieniadze = context.CharityEvents.First((x => x.Name == "Zmieranie pieniędzy dla Jana"));
+            var dlaJanaJedzenie = context.CharityEvents.First((x => x.Name == "Zmieranie jedzenia dla Jana"));
+
+            var eventParticipants = new EventParticipant[]
+            {
+                new EventParticipant()
+                {
+                    User = adam,
+                    ParticipationRequestDate = new DateTime(2017,11,18),
+                    IsAccepted = false,
+                    CharityEvent = dlaJanaPieniadze
+                },
+                new EventParticipant()
+                {
+                    User = rychu,
+                    ParticipationRequestDate = new DateTime(2017,11,18),
+                    IsAccepted = true,
+                    CharityEvent = dlaJanaPieniadze
+                },
+                new EventParticipant()
+                {
+                    User = adam,
+                    ParticipationRequestDate = new DateTime(2017,11,18),
+                    IsAccepted = false,
+                    CharityEvent = dlaJanaJedzenie
+                },
+                new EventParticipant()
+                {
+                    User = rychu,
+                    ParticipationRequestDate = new DateTime(2017,11,18),
+                    CharityEvent = dlaJanaJedzenie
+                },
+            };
+
+            foreach (var s in eventParticipants)
+            {
+                context.EventParticipants.Add(s);
             }
 
             context.SaveChanges();
