@@ -6,6 +6,7 @@ import { EventModel } from "./models/event-model.type";
 import { EventType } from "./models/event-type.type";
 import { OrganizationModel } from './models/organization-model.type';
 import { OrganizationType } from '../user-service/models/organization.enum';
+import { ManageEventModel } from "./models/manage-event-model.type";
 
 @Injectable()
 export class MyCharityService {
@@ -89,6 +90,40 @@ export class MyCharityService {
         organizationType: OrganizationType.NonProfit,
         isObserving: false
       }]);
+    });
+  }
+
+  getEventDetails(id: number): Promise<ManageEventModel> {
+    return new Promise<ManageEventModel>(resolve => {
+      resolve({
+        id: 0,
+        name: 'event 1',
+        users: [{
+          firstName: 'user',
+          lastName: 'first',
+          id: 0,
+          isAccepted: true,
+          mail: 'user.first@gmail.com'
+        }, {
+          firstName: 'user',
+          lastName: 'second',
+          id: 0,
+          isAccepted: false,
+          mail: 'user.second@gmail.com'
+          }, {
+            firstName: 'user',
+            lastName: 'third',
+            id: 0,
+            isAccepted: true,
+            mail: 'user.third@gmail.com'
+        }, {
+          firstName: 'user',
+          lastName: 'fourth',
+          id: 0,
+          isAccepted: false,
+          mail: 'user.fourth@gmail.com'
+        }]
+      });
     });
   }
 }

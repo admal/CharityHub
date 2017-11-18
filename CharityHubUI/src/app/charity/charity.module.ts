@@ -12,6 +12,7 @@ import { OrganizationListComponent } from './organizations/organizationList/orga
 import { UserEventsComponent } from "./userEvents/user-events.component";
 import { UserEventListComponent } from "./userEvents/userEventList/user-event-list.component";
 import { UserEventComponent } from "./userEvents/userEvent/user-event.component";
+import { UserManagementComponent } from "./myCharity/userManagement/user-management.component";
 
 @NgModule({
   imports: [
@@ -29,7 +30,8 @@ import { UserEventComponent } from "./userEvents/userEvent/user-event.component"
     OrganizationListComponent,
     UserEventsComponent,
     UserEventListComponent,
-    UserEventComponent],
+    UserEventComponent,
+    UserManagementComponent],
   exports: [],
   providers: [],
   schemas: []
