@@ -9,7 +9,7 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class UserService {
     private apiRoot = 'http://localhost:5000/api/User/';
-    private user: User;
+    public user: User;
     private headers: HttpHeaders;
 
     constructor(private http: HttpClient) {
@@ -20,7 +20,7 @@ export class UserService {
     }
 
     isLoggedIn() {
-        return this.user !== null;
+        return this.user !== null && typeof this.user !== 'undefined';
     }
 
     login(loginModel: LoginModel) {

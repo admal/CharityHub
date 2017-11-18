@@ -7,6 +7,7 @@ import { UserService } from './services/user-service/user.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { FooterComponent } from './footer/footer.component';
 import { MatIconModule } from '@angular/material';
 
 @NgModule({
@@ -18,8 +19,8 @@ import { MatIconModule } from '@angular/material';
         HttpClientModule,
         MatIconModule
     ],
-    declarations: [ToolbarComponent],
-    exports: [ToolbarComponent],
+    declarations: [ToolbarComponent, FooterComponent],
+    exports: [ToolbarComponent, FooterComponent],
     providers: [UserService], 
     schemas: [NO_ERRORS_SCHEMA]
 })
