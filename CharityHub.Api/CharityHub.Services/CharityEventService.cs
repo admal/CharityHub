@@ -121,31 +121,7 @@ namespace CharityHub.Services
 
             return charityEventModel;
         }
-
-        public ICollection<CharityEventModel> GetAllForCharity(int charityId)
-        {
-            ICollection<CharityEvent> charityEvents = (from e in _context.CharityEvents
-                                                       where e.CharityId == charityId
-                                                       select e).ToList();
-
-            var chairtyEventModels = _mapper.Map<ICollection<CharityEvent>, ICollection<CharityEventModel>>(charityEvents);
-
-            return chairtyEventModels;
-        }
-
-        public ICollection<CharityEventModel> GetAllForUsers(int userId)
-        {
-            //ICollection<CharityEvent> charityEvents = (from e in context.CharityEvents
-            //                                           where e.Participants
-            //                                           select e).ToList();
-
-            //var chairtyEventModels = mapper.Map<ICollection<CharityEvent>, ICollection<CharityEventModel>>(charityEvents);
-
-            //return chairtyEventModels;
-
-            throw new NotImplementedException();
-        }
-
+        
         public void UserSignInCharityEvent(int userId, int charityEventId)
         {
             var exists = _context.EventParticipants.Any(x => x.UserId == userId && x.CharityEventId == charityEventId);

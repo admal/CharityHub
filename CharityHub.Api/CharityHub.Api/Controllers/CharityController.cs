@@ -19,7 +19,15 @@ namespace CharityHub.Api.Controllers
         {
             _charityService = charityService;
         }
-        
+
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetCharity(int id)
+        {
+            var charity = _charityService.GetCharity(id);
+            return Json(charity);
+        }
+
         [HttpGet]
         public IActionResult GetCharities(string name, int? category)
         {

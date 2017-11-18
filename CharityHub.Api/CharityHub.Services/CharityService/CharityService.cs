@@ -28,7 +28,7 @@ namespace CharityHub.Services.CharityService
                     Name = x.Name,
                     Description = x.Description,
                     OwnerId = x.OwnerId,
-                    Category = (int)x.Category,
+                    OrganizationType = (int)x.Category,
                     OwnerName = x.Owner.Name
                 });
             return charities;
@@ -49,7 +49,7 @@ namespace CharityHub.Services.CharityService
                     OwnerId = x.OwnerId,
                     Description = x.Description,
                     Name = x.Name,
-                    Category = (int) x.Category,
+                    OrganizationType = (int)x.Category,
                     OwnerName = x.Owner.Name
                 })
                 .ToList();
@@ -108,15 +108,16 @@ namespace CharityHub.Services.CharityService
         {
             return _context.Charities
                 .Where(x => x.Id == charityId)
-               .Select(x => new CharityModel()
-               {
-                   Id = x.Id,
-                   Name = x.Name,
-                   Description = x.Description,
-                   OwnerId = x.OwnerId,
-                   Category = (int)x.Category,
-                   OwnerName = x.Owner.Name
-               }).SingleOrDefault();
+                .Select(x => new CharityModel()
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    OwnerId = x.OwnerId,
+                    OrganizationType = (int) x.Category,
+                    OwnerName = x.Owner.Name
+                })
+                .SingleOrDefault();
         }
     }
 }

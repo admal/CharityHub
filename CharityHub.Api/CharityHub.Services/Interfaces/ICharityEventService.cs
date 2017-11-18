@@ -12,8 +12,6 @@ namespace CharityHub.Services.Interfaces
     {
         void Add(CharityEventInputModel inputModel);
         CharityEventModel Get(int id);
-        ICollection<CharityEventModel> GetAllForCharity(int charityId);
-        ICollection<CharityEventModel> GetAllForUsers(int userId);
         void UserSignInCharityEvent(int userId, int charityEventId);
         void UserSignOutCharityEvent(int userId, int charityEventId);
         void AcceptUser(int userId, int charityEventId);
