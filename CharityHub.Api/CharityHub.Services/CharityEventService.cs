@@ -69,7 +69,7 @@ namespace CharityHub.Services
 
             //return chairtyEventModels;
 
-            return NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
