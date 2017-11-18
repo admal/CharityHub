@@ -13,48 +13,48 @@ namespace CharityHub.Services
 {
     public class CharityEventService : ICharityEventService
     {
-        private CharityHubContext context;
-        private IMapper mapper;
+        private readonly CharityHubContext _context;
+        private readonly IMapper _mapper;
 
         public CharityEventService(
             CharityHubContext context,
             IMapper mapper)
         {
-            this.context = context;
-            this.mapper = mapper;
+            this._context = context;
+            this._mapper = mapper;
         }
 
         public void Add(CharityEventInputModel inputModel)
         {
-            var charityEvent = mapper.Map<CharityEventInputModel, CharityEvent>(inputModel);
+            var charityEvent = _mapper.Map<CharityEventInputModel, CharityEvent>(inputModel);
 
             charityEvent.StartDate = DateTime.Now;
 
-            context.CharityEvents.Add(charityEvent);
+            _context.CharityEvents.Add(charityEvent);
 
-            context.SaveChanges();
+            _context.SaveChanges();
         }
 
 
         public CharityEventModel Get(int id)
         {
-            var charityEvent = context.CharityEvents.Find(id);
+            var charityEvent = _context.CharityEvents.Find(id);
 
             if (charityEvent == null)
                 return null;
 
-            var charityEventModel = mapper.Map<CharityEvent, CharityEventModel>(charityEvent);
+            var charityEventModel = _mapper.Map<CharityEvent, CharityEventModel>(charityEvent);
 
             return charityEventModel;
         }
 
         public ICollection<CharityEventModel> GetAllForCharity(int charityId)
         {
-            ICollection<CharityEvent> charityEvents = (from e in context.CharityEvents
+            ICollection<CharityEvent> charityEvents = (from e in _context.CharityEvents
                                                        where e.CharityId == charityId
                                                        select e).ToList();
 
-            var chairtyEventModels = mapper.Map<ICollection<CharityEvent>, ICollection<CharityEventModel>>(charityEvents);
+            var chairtyEventModels = _mapper.Map<ICollection<CharityEvent>, ICollection<CharityEventModel>>(charityEvents);
 
             return chairtyEventModels;
         }
@@ -70,6 +70,64 @@ namespace CharityHub.Services
             //return chairtyEventModels;
 
             throw new NotImplementedException();
+        }
+
+        public void UserSignInCharityEvent(int userId, int charityEventId)
+        {
+            var exists = _context.EventParticipants.Any(x => x.UserId == userId && x.CharityEventId == charityEventId);
+            if (exists)
+            {
+                return;
+            }
+
+            var newParticipant = new EventParticipant()
+            {
+                IsAccepted = null,
+                ParticipationRequestDate = DateTime.Now,
+                UserId = userId,
+                CharityEventId = charityEventId
+            };
+            _context.EventParticipants.Add(newParticipant);
+            _context.SaveChanges();
+        }
+
+        public void UserSignOutCharityEvent(int userId, int charityEventId)
+        {
+            var exists = _context.EventParticipants.Any(x => x.UserId == userId && x.CharityEventId == charityEventId);
+            if (exists == false)
+            {
+                return;
+            }
+            
+            var participant = _context.EventParticipants.First(x => x.UserId == userId && x.CharityEventId == charityEventId);
+            _context.EventParticipants.Remove(participant);
+            _context.SaveChanges();
+        }
+
+        public void AcceptUser(int userId, int charityEventId)
+        {
+            var exists = _context.EventParticipants.Any(x => x.UserId == userId && x.CharityEventId == charityEventId);
+            if (exists == false)
+            {
+                return;
+            }
+
+            var participant = _context.EventParticipants.First(x => x.UserId == userId && x.CharityEventId == charityEventId);
+            participant.IsAccepted = true;
+            _context.SaveChanges();
+        }
+
+        public void RejectUser(int userId, int charityEventId)
+        {
+            var exists = _context.EventParticipants.Any(x => x.UserId == userId && x.CharityEventId == charityEventId);
+            if (exists == false)
+            {
+                return;
+            }
+
+            var participant = _context.EventParticipants.First(x => x.UserId == userId && x.CharityEventId == charityEventId);
+            participant.IsAccepted = false;
+            _context.SaveChanges();
         }
     }
 }
