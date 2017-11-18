@@ -14,6 +14,7 @@ namespace CharityHub.Domain
             context.Database.EnsureCreated();
 
             InitUsers(context);
+            InitCharities(context);
            
         }
 
@@ -34,6 +35,42 @@ namespace CharityHub.Domain
             foreach (var s in users)
             {
                 context.Users.Add(s);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InitCharities(CharityHubContext context)
+        {
+            if (context.Charities.Any())
+            {
+                return;
+            }
+            var adam = context.Users.First(x => x.Name == "Adam");
+            var rychu = context.Users.First(x => x.Name == "Damian");
+            var charities = new Charity[]
+            {
+                new Charity()
+                {
+                    Name = "Testowy Adama",
+                    Description = "Opis",
+                    Category = CharityCategory.Profit,
+                    CreatedDate = DateTime.Now,
+                    Owner = adam
+                },
+                new Charity()
+                {
+                    Name = "Testowy Rycha",
+                    Description = "Opis2",
+                    Category = CharityCategory.NonProfit,
+                    CreatedDate = DateTime.Now,
+                    Owner = rychu
+                }
+            };
+
+            foreach (var s in charities)
+            {
+                context.Charities.Add(s);
             }
 
             context.SaveChanges();
