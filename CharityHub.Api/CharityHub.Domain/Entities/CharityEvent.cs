@@ -11,10 +11,10 @@ namespace CharityHub.Domain.Entities
         public virtual DateTime StartDate { get; set; }
         public virtual DateTime EndDate { get; set; }
 
-        public virtual long CharityId { get; set; }
+        public virtual int CharityId { get; set; }
         public virtual Charity Charity { get; set; }
 
-        public virtual long EventCategoryId { get; set; }
+        public virtual int EventCategoryId { get; set; }
         public virtual EventCategory EventCategory { get; set; }
 
         public virtual ICollection<EventParticipant> Participants { get; set; }

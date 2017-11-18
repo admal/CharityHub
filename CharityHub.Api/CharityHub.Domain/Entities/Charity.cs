@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CharityHub.Domain.Entities
 {
@@ -10,8 +11,9 @@ namespace CharityHub.Domain.Entities
         public virtual DateTime CreatedDate { get; set; }
         public virtual CharityCategory Category { get; set; }
 
+        [ForeignKey("UserId")]
         public virtual User Owner { get; set; }
-        public virtual long  OwnerId { get; set; }
+        public virtual int OwnerId { get; set; }
 
         public virtual ICollection<CharityEvent> Events { get; set; }
         public virtual ICollection<User_Charity> ObservedByUsers { get; set; }

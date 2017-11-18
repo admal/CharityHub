@@ -8,7 +8,7 @@ namespace CharityHub.Domain.Entities
         public virtual string Body { get; set; }
         public virtual DateTime CreatedDate { get; set; }
 
-        public virtual long EventId { get; set; }
+        public virtual int EventId { get; set; }
         public virtual CharityEvent CharityEvent { get; set; }
     }
 }

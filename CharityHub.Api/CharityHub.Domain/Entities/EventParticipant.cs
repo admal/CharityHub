@@ -7,10 +7,10 @@ namespace CharityHub.Domain.Entities
         public virtual DateTime ParticipationRequestDate { get; set; }
         public virtual bool? IsAccepted { get; set; }
 
-        public virtual long UserId { get; set; }
+        public virtual int UserId { get; set; }
         public virtual User User { get; set; }
 
-        public virtual long CharityEventId { get; set; }
+        public virtual int CharityEventId { get; set; }
         public virtual CharityEvent CharityEvent { get; set; }
     }
 }
