@@ -1,4 +1,5 @@
-<mat-card class="event-container">
+
+<mat-card class="card-container">
   <mat-card-header>
     <mat-card-title><h3>{{eventModel.name}}</h3></mat-card-title>
     <mat-card-subtitle>{{eventModel.startDate.toLocaleDateString("en-US")}} - {{eventModel.endDate.toLocaleDateString("en-US")}}</mat-card-subtitle>
@@ -7,6 +8,7 @@
     {{eventModel.description}}
   </mat-card-content>
   <mat-card-actions>
+    <button mat-button>Wyœlij powiadomienie</button>
   </mat-card-actions>
 </mat-card>
 
