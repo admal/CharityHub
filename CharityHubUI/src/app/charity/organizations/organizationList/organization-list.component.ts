@@ -11,6 +11,8 @@ import { MyCharityService } from '../../../core/services/charity-service/my-char
 export class OrganizationListComponent {  
   organizations: OrganizationModel[]; 
 
+  isLoading = true;
+
   constructor(private readonly myCharityService: MyCharityService) {
   }
 
@@ -18,6 +20,7 @@ export class OrganizationListComponent {
     this.myCharityService.getOrganizations()
       .then((organizations: OrganizationModel[]) => {
         this.organizations = organizations;
+        this.isLoading = false;
       })
   }
 

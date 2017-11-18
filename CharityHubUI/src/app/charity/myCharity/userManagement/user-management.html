@@ -1,0 +1,26 @@
+<mat-card class="user-management-container">
+  <mat-card-header>
+    <mat-card-title>
+      <h3>{{manageEventModel.name}}</h3>
+    </mat-card-title>
+    <mat-card-subtitle></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item>
+        <div class="user-field">Użytkownik</div>
+        <div class="user-field">Mail</div>
+        <div class="user-field"></div>
+      </mat-list-item>
+      <mat-list-item *ngFor="let user of manageEventModel.users" >
+        <div class="user-field">{{user.firstName}} &nbsp;{{user.lastName}}</div>
+        <div class="user-field">{{user.mail}}</div>
+        <div class="user-field">
+          <button mat-raised-button color="primary" *ngIf="user.isAccepted">Zaakceptuj</button>
+        </div>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+  <mat-card-actions>
+  </mat-card-actions>
+</mat-card>

@@ -1,21 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 import { EventModel } from "./models/event-model.type";
 import { EventType } from "./models/event-type.type";
 import { OrganizationModel } from './models/organization-model.type';
 import { OrganizationType } from '../user-service/models/organization.enum';
+import { ManageEventModel } from "./models/manage-event-model.type";
 
 @Injectable()
 export class MyCharityService {
   private apiRootEvent = 'http://localhost:5000/api/CharityEvent/';
+  private apiRootCharity = 'http://localhost:5000/api/Charity/';
+  
 
   constructor(private http: HttpClient) {
   }
 
   addEvent(event: EventModel) {
     return this.http.post(`${this.apiRootEvent}`, event, { responseType: 'text' as 'json' })
+      .toPromise();
+  }
+
+  getCharity(charityId: number) {
+    return this.http.get<OrganizationModel>(`${this.apiRootCharity}${charityId}`)
       .toPromise();
   }
 
@@ -52,43 +60,51 @@ export class MyCharityService {
     });
   }
 
-  getOrganizations(): Promise<OrganizationModel[]> {
-    return new Promise<OrganizationModel[]>(resolve => {
-      resolve([{
-        id: 1,
-        name: "Test name 1",
-        description: "My short description of my favorite organization that I am in charge of",
-        organizationType: OrganizationType.NonProfit,
-        isObserving: false
-      },
-      {
-        id: 2,
-        name: "Test name 2",
-        description: "My short description of my favorite organization that I am in charge of",
-        organizationType: OrganizationType.Profit,
-        isObserving: false
-      },
-      {
-        id: 3,
-        name: "Test name 3",
-        description: "My short description of my favorite organization that I am in charge of",
-        organizationType: OrganizationType.NonProfit,
-        isObserving: false
-      },
-      {
-        id: 4,
-        name: "Test name 3",
-        description: "My short description of my favorite organization that I am in charge of",
-        organizationType: OrganizationType.NonProfit,
-        isObserving: false
-      },
-      {
-        id: 5,
-        name: "Test name 3",
-        description: "My short description of my favorite organization that I am in charge of",
-        organizationType: OrganizationType.NonProfit,
-        isObserving: false
-      }]);
+  getOrganizations(userId?: number, name?: string, categoryId?: OrganizationType) {
+    let params = new HttpParams();
+    if(userId !== null && typeof userId !== 'undefined') {
+      params.set('userId', userId.toString());
+    } else if (name !== null && typeof name !== 'undefined') {
+      params.set('name', name);
+    } else if(categoryId !== null && typeof categoryId !== 'undefined') {
+      params.set('category', categoryId.toString());
+    }
+
+    return this.http.get<OrganizationModel[]>(`${this.apiRootCharity}`, { params: params })
+      .toPromise();
+  }
+
+  getEventDetails(id: number): Promise<ManageEventModel> {
+    return new Promise<ManageEventModel>(resolve => {
+      resolve({
+        id: 0,
+        name: 'event 1',
+        users: [{
+          firstName: 'user',
+          lastName: 'first',
+          id: 0,
+          isAccepted: true,
+          mail: 'user.first@gmail.com'
+        }, {
+          firstName: 'user',
+          lastName: 'second',
+          id: 0,
+          isAccepted: false,
+          mail: 'user.second@gmail.com'
+          }, {
+            firstName: 'user',
+            lastName: 'third',
+            id: 0,
+            isAccepted: true,
+            mail: 'user.third@gmail.com'
+        }, {
+          firstName: 'user',
+          lastName: 'fourth',
+          id: 0,
+          isAccepted: false,
+          mail: 'user.fourth@gmail.com'
+        }]
+      });
     });
   }
 }
