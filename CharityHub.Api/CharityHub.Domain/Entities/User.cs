@@ -5,13 +5,20 @@ using System.Text;
 
 namespace CharityHub.Domain.Entities
 {
-    public class User
+    public class User : Entity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
-        public DateTime BornDate { get; set; }
-        public string EmailAddress { get; set; }
-        public Sex Sex { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string LastName { get; set; }
+        //public virtual DateTime? BirthDate { get; set; }
+        public virtual string EmailAddress { get; set; }
+        public virtual string PasswordHash { get; set; }
+        //public virtual Sex Sex { get; set; }
+
+
+        public virtual int? CharityId { get; set; }
+        public virtual Charity Charity { get; set; }
+
+        public virtual ICollection<User_Charity> ObservedCharities { get; set; }
+        public virtual ICollection<EventParticipant> Events { get; set; }
     }
 }

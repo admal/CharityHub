@@ -14,6 +14,7 @@ namespace CharityHub.Domain
             context.Database.EnsureCreated();
 
             InitUsers(context);
+            InitCharities(context);
            
         }
 
@@ -25,15 +26,51 @@ namespace CharityHub.Domain
             }
 
             var users = new User[]{
-                new User(){ Name = "Adam"},
-                new User(){ Name = "Patryk"},
-                new User(){ Name = "Krystian"},
-                new User(){ Name = "Damian"},
+                new User(){ Name = "Adam", LastName = "Malewski", EmailAddress = "adam.malewski@wp.pl", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
+                new User(){ Name = "Patryk", LastName = "Wołosz", EmailAddress = "wolosz.patryk@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
+                new User(){ Name = "Krystian", LastName = "Rytel", EmailAddress = "krystian.rytel@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
+                new User(){ Name = "Damian", LastName = "Dmochowski", EmailAddress = "dmochowskidd@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
             };
 
             foreach (var s in users)
             {
                 context.Users.Add(s);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InitCharities(CharityHubContext context)
+        {
+            if (context.Charities.Any())
+            {
+                return;
+            }
+            var adam = context.Users.First(x => x.Name == "Adam");
+            var rychu = context.Users.First(x => x.Name == "Damian");
+            var charities = new Charity[]
+            {
+                new Charity()
+                {
+                    Name = "Testowy Adama",
+                    Description = "Opis",
+                    Category = CharityCategory.Profit,
+                    CreatedDate = DateTime.Now,
+                    Owner = adam
+                },
+                new Charity()
+                {
+                    Name = "Testowy Rycha",
+                    Description = "Opis2",
+                    Category = CharityCategory.NonProfit,
+                    CreatedDate = DateTime.Now,
+                    Owner = rychu
+                }
+            };
+
+            foreach (var s in charities)
+            {
+                context.Charities.Add(s);
             }
 
             context.SaveChanges();

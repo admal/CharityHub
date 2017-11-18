@@ -1,3 +1,94 @@
 <div class="container">
-    
+    {{getModel()}}
+    <h2>Zarejestruj</h2>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <input matInput placeholder="Email" [(ngModel)]="registerModel.emailAddress" type="email" name="email" #email="ngModel" email
+                required>
+            <mat-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+                <div *ngIf="email?.errors.required">
+                    Email jest wymagany.
+                </div>
+                <div *ngIf="email?.errors.email">
+                    Email jest nieprawidłowy.
+                </div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Hasło" [(ngModel)]="registerModel.password" type="password" name="password" #password="ngModel"
+                required>
+            <mat-error *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+                <div *ngIf="password?.errors.required">
+                    Hasło jest wymagane.
+                </div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Potwierdź hasło" [(ngModel)]="registerModel.repeatPassword" type="password" name="repeatPassword"
+                #repeatPassword="ngModel" [pattern]="registerModel.password" required>
+            <mat-error *ngIf="repeatPassword?.invalid && (repeatPassword?.dirty || repeatPassword?.touched)">
+                <div *ngIf="repeatPassword?.errors?.required">
+                    Potwierdzenie hasła jest wymagane.
+                </div>
+                <div *ngIf="repeatPassword?.errors?.pattern">
+                    Hasła nie są takie same.
+                </div>
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Imię" [(ngModel)]="registerModel.name" type="text" name="name" #name="ngModel" required>
+            <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+                Imię jest wymagane.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Nazwisko" [(ngModel)]="registerModel.surname" type="text" name="surname" #surname="ngModel"
+                required>
+            <mat-error *ngIf="surname?.invalid && (surname?.dirty || surname?.touched)">
+                Nazwisko jest wymagane.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-checkbox color="primary" [(ngModel)]="registerModel.addOrganization" [ngModelOptions]="{standalone: true}">Stwórz organizację</mat-checkbox>
+
+        <div *ngIf="registerModel.addOrganization">
+            <mat-form-field>
+                <input matInput placeholder="Nazwa organizacji" [(ngModel)]="registerModel.organizationName" type="text" name="organizationName"
+                    #organizationName="ngModel" required>
+                <mat-error *ngIf="organizationName?.invalid && (organizationName?.dirty || organizationName?.touched)">
+                    Nazwa organizacji jest wymagana.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput placeholder="Opis organizacji" [(ngModel)]="registerModel.organizationDescription" type="text" name="organizationDescription"
+                    #organizationDescription="ngModel" required>
+                <mat-error *ngIf="organizationDescription?.invalid && (organizationDescription?.dirty || organizationDescription?.touched)">
+                    Opis organizacji jest wymagany.
+                </mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-select [(ngModel)]="registerModel.organizationType" [ngModelOptions]="{standalone: true}" placeholder="Typ organizacji">
+                    <mat-option [value]="1">
+                        Profit
+                    </mat-option>
+                    <mat-option [value]="2">
+                        Non profit
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="text-center" style="margin-top: 10px">
+            <button type="submit" mat-raised-button color="primary" [disabled]="!registerForm.form.valid">
+                Zarejestruj
+            </button>
+        </div>
+    </form>
+
 </div>
