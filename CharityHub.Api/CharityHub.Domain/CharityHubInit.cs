@@ -56,7 +56,8 @@ namespace CharityHub.Domain
                     Description = "Opis",
                     Category = CharityCategory.Profit,
                     CreatedDate = DateTime.Now,
-                    Owner = adam
+                    Owner = adam,
+                    OwnerId = adam.Id
                 },
                 new Charity()
                 {
@@ -64,14 +65,18 @@ namespace CharityHub.Domain
                     Description = "Opis2",
                     Category = CharityCategory.NonProfit,
                     CreatedDate = DateTime.Now,
-                    Owner = rychu
+                    Owner = rychu,
+                    OwnerId = rychu.Id
                 }
             };
-
+            
             foreach (var s in charities)
             {
                 context.Charities.Add(s);
             }
+
+            adam.Charity = charities[0];
+            rychu.Charity = charities[1];
 
             context.SaveChanges();
         }

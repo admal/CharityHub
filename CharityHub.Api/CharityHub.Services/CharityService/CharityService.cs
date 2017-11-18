@@ -43,6 +43,10 @@ namespace CharityHub.Services.CharityService
 
             _context.Charities.Add(newCharity);
             _context.SaveChanges();
+
+            var user = _context.Users.First(x => x.Id == model.OwnerId);
+            user.Charity = newCharity;
+            _context.SaveChanges();
         }
     }
 }
