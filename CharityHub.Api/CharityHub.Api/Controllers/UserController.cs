@@ -43,7 +43,7 @@ namespace CharityHub.Api.Controllers
             if (user == null)
             {
                 NotFound("User not found");
-            }
+            } 
 
             return Ok(user);
         }

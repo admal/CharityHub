@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { OrganizationModel } from './../../../core/services/charity-service/models/organization-model.type';
 import { OrganizationType } from '../../../core/services/user-service/models/organization.enum';
+import { OrganizationModel } from './../../../core/services/charity-service/models/organization-model.type';
 
 @Component({  
   selector: 'organization',
@@ -11,7 +11,7 @@ export class OrganizationComponent {
   @Input() organizationModel: OrganizationModel;
 
   constructor() {
-  }
+  } 
 
   getOrganizationType() {
       switch(this.organizationModel.organizationType) {

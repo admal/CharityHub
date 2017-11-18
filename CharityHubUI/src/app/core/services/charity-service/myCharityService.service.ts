@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map'
 import { EventModel } from "./models/event-model.type";
 import { EventType } from "./models/event-type.type";
+import { OrganizationModel } from './models/organization-model.type';
+import { OrganizationType } from '../user-service/models/organization.enum';
 
 @Injectable()
 export class MyCharityService {
@@ -38,6 +40,29 @@ export class MyCharityService {
         name: 'event 3'
       }
       ]);
+    });
+  }
+
+  getOrganizations(): Promise<OrganizationModel[]> {
+    return new Promise<OrganizationModel[]>(resolve => {
+      resolve([{ 
+        id: 1,
+        name: "Test name 1",
+        description: "My short description of my favorite organization that I am in charge of",
+        organizationType: OrganizationType.NonProfit
+      },
+      { 
+        id: 2,
+        name: "Test name 2",
+        description: "My short description of my favorite organization that I am in charge of",
+        organizationType: OrganizationType.Profit
+      },
+      { 
+        id: 3,
+        name: "Test name 3",
+        description: "My short description of my favorite organization that I am in charge of",
+        organizationType: OrganizationType.NonProfit
+      }]);
     });
   }
 }

@@ -7,7 +7,8 @@ import { MyCharityComponent } from "./myCharity/my-charity.component";
 import { NewEventComponent } from "./myCharity/newEvent/new-event.component";
 import { NewsComponent } from "./news/news.component";
 import { NewsDetailsComponent } from "./news/news-details/news-details.components";
-import { OrganizationComponent } from './events/organization/organization.component';
+import { OrganizationComponent } from './organizations/organization/organization.component';
+import { OrganizationListComponent } from './organizations/organizationList/organization-list.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { OrganizationComponent } from './events/organization/organization.compon
     NewEventComponent,
     NewsComponent,
     NewsDetailsComponent,
-    OrganizationComponent],
+    OrganizationComponent,
+    OrganizationListComponent],
   exports: [],
   providers: [],
   schemas: []
