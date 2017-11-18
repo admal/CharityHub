@@ -9,7 +9,7 @@ namespace CharityHub.Domain.Models.UserModels
     {
         public string Name { get; set; }
         public string LastName { get; set; }
-        public DateTime BornDate { get; set; }
+        public DateTime BirthDate { get; set; }
         [EmailAddress]
         public string EmailAddress { get; set; }
         /// <summary>
