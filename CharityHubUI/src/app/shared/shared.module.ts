@@ -9,10 +9,10 @@ import { MaterialDesignModule } from './material-design.module';
   imports: [MaterialDesignModule],
   declarations: [],
   exports: [
-      CommonModule,
-      FormsModule,
-      NgbModule,
-      MaterialDesignModule
+    CommonModule,
+    FormsModule,
+    NgbModule,
+    MaterialDesignModule
   ]
 })
 export class SharedModule { } 
