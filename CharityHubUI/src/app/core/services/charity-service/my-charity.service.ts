@@ -28,7 +28,7 @@ export class MyCharityService {
         startDate: new Date(),
         eventCategory: EventType.Hospital,
         name: 'event 1',
-        organizationId: 0
+        charityId: 0
       },
       {
         id: 2,
@@ -37,7 +37,7 @@ export class MyCharityService {
         startDate: new Date(),
         eventCategory: EventType.Animals,
         name: 'event 2',
-        organizationId: 0
+        charityId: 0
       },
       {
         id: 3,
@@ -46,7 +46,7 @@ export class MyCharityService {
         startDate: new Date(),
         eventCategory: EventType.Animals,
         name: 'event 3',
-        organizationId: 0
+        charityId: 0
       }
       ]);
     });

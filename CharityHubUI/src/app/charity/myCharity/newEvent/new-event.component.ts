@@ -3,6 +3,8 @@ import { NgForm } from "@angular/forms/src/forms";
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
 import { MyCharityService } from '../../../core/services/charity-service/my-charity.service';
 import { UserService } from '../../../core/services/user-service/user.service';
+import { MatSnackBar } from '@angular/material';
+import { AppComponent } from '../../../app.component';
 
 @Component({
   selector: '<new-event></new-event>',
@@ -10,11 +12,12 @@ import { UserService } from '../../../core/services/user-service/user.service';
   styleUrls: ['../../charity.scss'] 
 })
 export class NewEventComponent {
-  newEventModel: EventModel;
+  newEventModel: EventModel; 
 
   constructor(
     private readonly myCharityService: MyCharityService,
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    public snackBar: MatSnackBar
   ) {
     this.newEventModel = new EventModel();
   }
@@ -23,7 +26,10 @@ export class NewEventComponent {
       this.newEventModel.charityId = this.userService.user.organizationId;
       this.myCharityService.addEvent(this.newEventModel)
         .then(() => {
-            console.log('event sie dodal djud');
+          this.newEventModel = new EventModel();
+          this.snackBar.openFromComponent(AppComponent, {
+            duration: 1000,
+          });
         });
   }
 
