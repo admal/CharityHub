@@ -7,6 +7,7 @@ import {
   MatNativeDateModule,
   MatCheckboxModule,
   MatSelectModule,
+  MatCardModule
  } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -20,7 +21,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatDatepickerModule,
 	  MatSelectModule,
     MatCheckboxModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatCardModule
     ]
 }) 
 export class MaterialDesignModule { }  

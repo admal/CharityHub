@@ -1,7 +1,13 @@
-<div>
-  <h3>{{eventModel.name}}</h3>
-  <h4>{{eventModel.startDate}} - {{eventModel.endDate}}</h4>
-  <textarea>{{eventModel.description}}</textarea>
-</div>
 
+<mat-card class="event-container">
+  <mat-card-header>
+    <mat-card-title><h3>{{eventModel.name}}</h3></mat-card-title>
+    <mat-card-subtitle>{{eventModel.startDate.toLocaleDateString("en-US")}} - {{eventModel.endDate.toLocaleDateString("en-US")}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    {{eventModel.description}}
+  </mat-card-content>
+  <mat-card-actions>
+  </mat-card-actions>
+</mat-card>
 

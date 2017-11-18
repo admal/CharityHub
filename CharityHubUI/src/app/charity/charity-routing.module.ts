@@ -10,4 +10,4 @@ import { MyCharityComponent } from "./myCharity/my-charity.component";
   ])],
   exports: [RouterModule]
 })
-export class CharityRoutingModule { }
+export class CharityRoutingModule { } 

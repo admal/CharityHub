@@ -3,8 +3,9 @@ import { MyCharityService } from "../../../core/services/charity-service/myChari
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
 
 @Component({
-  selector: 'event-list',
-  templateUrl: './event-list.html',
+  selector: 'event-list', 
+  templateUrl: './event-list.html'
+  styleUrls: ['../../charity.scss']
 })
 export class EventListComponent {
   userEvents: EventModel[];
