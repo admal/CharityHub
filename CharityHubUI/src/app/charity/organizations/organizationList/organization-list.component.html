@@ -1,4 +1,4 @@
-<div class="organizations-container">
+<div *ngIf="isLoading === false" class="organizations-container">
     <div *ngFor="let organization of organizations">
         <organization [organizationModel]="organization"></organization>
     </div>

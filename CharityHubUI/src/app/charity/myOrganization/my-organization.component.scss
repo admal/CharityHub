@@ -1,0 +1,12 @@
+.organization-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+.form-text {
+    * {
+        display: inline-block;
+    }
+}

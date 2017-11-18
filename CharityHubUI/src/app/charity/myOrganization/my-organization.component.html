@@ -1,0 +1,12 @@
+<div *ngIf="isLoading === false" class="organization-container">
+    <h2>{{myOrganization.name}}</h2>
+    <div class="form-text">
+        <label for="category">Kategoria:</label>
+        <div name="category">{{getCategory()}}</div>
+    </div>
+
+    <div class="form-text">
+        <label for="description">Opis:</label>
+        <div name="description">{{myOrganization.description}}</div>
+    </div>
+</div>
