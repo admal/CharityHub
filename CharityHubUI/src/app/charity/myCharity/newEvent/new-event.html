@@ -2,7 +2,7 @@
   <form #newEventForm="ngForm" (ngSubmit)="onSubmit(newEventForm)">
     <mat-form-field>
       <input matInput placeholder="Nazwa" [(ngModel)]="newEventModel.name"
-             type="text" name="name" #nazwa="ngModel" required>
+             type="text" name="name" #name="ngModel" required>
       <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">
         Nazwa jest wymagana
       </mat-error>
@@ -19,7 +19,7 @@
       <input matInput placeholder="Data rozpoczęcia" [matDatepicker]="startDatePicker"
              [(ngModel)]="newEventModel.startDate" #startDate="ngModel" name="startDate" required>
       <mat-datepicker-toggle matSuffix [for]="startDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #startDatePicker [touchUi]="touch"></mat-datepicker>
+      <mat-datepicker #startDatePicker></mat-datepicker>
       <mat-error *ngIf="startDate?.invalid && (startDate?.dirty || startDate?.touched)">
         Data rozpoczęcia jest wymagana
       </mat-error>
@@ -27,9 +27,9 @@
 
     <mat-form-field>
       <input matInput placeholder="Data rozpoczęcia" [matDatepicker]="endDatePicker"
-             [(ngModel)]="newEventModel.endDate" #startDate="ngModel" name="endDate" required>
+             [(ngModel)]="newEventModel.endDate" #endDate="ngModel" name="endDate" required>
       <mat-datepicker-toggle matSuffix [for]="endDatePicker"></mat-datepicker-toggle>
-      <mat-datepicker #endDatePicker [touchUi]="touch"></mat-datepicker>
+      <mat-datepicker #endDatePicker></mat-datepicker>
       <mat-error *ngIf="endDate?.invalid && (endDate?.dirty || endDate?.touched)">
         Data rozpoczęcia jest wymagana
       </mat-error>

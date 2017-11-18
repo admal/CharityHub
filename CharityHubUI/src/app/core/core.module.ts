@@ -10,6 +10,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatIconModule } from '@angular/material';
 import { MyCharityService } from "./services/charity-service/myCharityService.service";
+import { NewsService } from "./services/news-service/news-service.service";
 
 @NgModule({
     imports: [
@@ -22,7 +23,7 @@ import { MyCharityService } from "./services/charity-service/myCharityService.se
     ],
     declarations: [ToolbarComponent, FooterComponent],
     exports: [ToolbarComponent, FooterComponent],
-    providers: [UserService, MyCharityService], 
+    providers: [UserService, MyCharityService, NewsService], 
     schemas: [NO_ERRORS_SCHEMA]
 })
 export class CoreModule {

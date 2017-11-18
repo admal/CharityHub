@@ -13,7 +13,7 @@ namespace CharityHub.Domain.Entities
 
         public virtual int CharityId { get; set; }
         public virtual Charity Charity { get; set; }
-
+        
         public virtual EventCategory EventCategory { get; set; }
 
         public virtual ICollection<EventParticipant> Participants { get; set; }

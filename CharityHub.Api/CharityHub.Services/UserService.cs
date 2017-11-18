@@ -7,6 +7,7 @@ using System.Linq;
 using CharityHub.Domain.Models.UserModels;
 using AutoMapper;
 using CharityHub.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace CharityHub.Services
 {
@@ -41,20 +42,23 @@ namespace CharityHub.Services
         {
             var user = (from u in context.Users
                         where u.Id == id
-                        select u).SingleOrDefault();
+                        select u)
+                        .Include(x => x.Charity)
+                        .Include(x => x.ObservedCharities)
+                        .Include(x => x.Events)
+                        .SingleOrDefault();
 
             var userModel = mapper.Map<User, UserModel>(user);
 
             return userModel;
         }
 
-        public User GetUser(string login, string passwordHash)
+        public UserModel GetUser(string login, string passwordHash)
         {
             var user = (from u in context.Users
                         where u.EmailAddress == login && u.PasswordHash == passwordHash
                         select u).SingleOrDefault();
-
-            return user;
+            return GetUser(user.Id);
         }
 
         private bool Exists(string emailAddress)

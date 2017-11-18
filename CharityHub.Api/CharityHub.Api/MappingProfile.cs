@@ -11,7 +11,7 @@ namespace CharityHub.Api
     {
         public MappingProfile(ICryptographyService cryptographyService)
         {
-            CreateMap<User, UserModel>();
+            CreateMap<User, UserModel>().ForMember(dest => dest.OrganizationId, e => e.MapFrom(src => src.CharityId));
             CreateMap<CharityEventInputModel, CharityEvent>();
             CreateMap<CharityEvent, CharityEventModel>();
             CreateMap<SignUpInputModel, User>()
