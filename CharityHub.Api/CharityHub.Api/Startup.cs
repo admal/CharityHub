@@ -7,6 +7,7 @@ using CharityHub.Services.Interfaces;
 using CharityHub.Services;
 using CharityHub.Domain;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace CharityHub.Api
 {
@@ -37,6 +38,12 @@ namespace CharityHub.Api
 
             // Add application services.
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ICryptographyService, CryptographyService>();
+
+            services.AddSingleton(provider => new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new MappingProfile(provider.GetService<ICryptographyService>()));
+            }).CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

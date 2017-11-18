@@ -25,10 +25,10 @@ namespace CharityHub.Domain
             }
 
             var users = new User[]{
-                new User(){ Name = "Adam"},
-                new User(){ Name = "Patryk"},
-                new User(){ Name = "Krystian"},
-                new User(){ Name = "Damian"},
+                new User(){ Name = "Adam", LastName = "Malewski", EmailAddress = "adam.malewski@wp.pl", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
+                new User(){ Name = "Patryk", LastName = "Wołosz", EmailAddress = "wolosz.patryk@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
+                new User(){ Name = "Krystian", LastName = "Rytel", EmailAddress = "krystian.rytel@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
+                new User(){ Name = "Damian", LastName = "Dmochowski", EmailAddress = "dmochowskidd@gmail.com", PasswordHash="087c21f7779390463a98cdaf6a6b494f116c0f3f9e5b8c3596aa8c65410e6c4a"/*, Sex=Models.Sex.Male*/},
             };
 
             foreach (var s in users)
