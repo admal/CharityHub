@@ -9,8 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CharityHub.Api.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Charity")]
+    [Produces("application/json")]
     public class CharityController : Controller
     {
         private readonly ICharityService _charityService;
@@ -21,7 +21,6 @@ namespace CharityHub.Api.Controllers
         }
         
         [HttpGet]
-        [Route("Get")]
         public IActionResult GetCharities()
         {
             var charities = _charityService.GetCharities();
@@ -31,7 +30,7 @@ namespace CharityHub.Api.Controllers
         [HttpPost]
         public IActionResult AddCharity([FromBody] CharityModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid == false)
             {
                 return BadRequest();
             }
