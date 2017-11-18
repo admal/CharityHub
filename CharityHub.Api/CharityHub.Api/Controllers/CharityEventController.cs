@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CharityHub.Domain.Models.UserModels;
+using CharityHub.Services.CharityService;
 
 namespace CharityHub.Api.Controllers
 {
@@ -15,13 +16,19 @@ namespace CharityHub.Api.Controllers
     {
         private IEmailNotificationService emailNotificationService;
         private ICharityEventService charityEventService;
+        private IUserService userService;
+        private ICharityService charityService;
 
         public CharityEventController(
             IEmailNotificationService emailNotificationService,
-            ICharityEventService charityEventService)
+            ICharityEventService charityEventService,
+            IUserService userService,
+            ICharityService charityService)
         {
             this.emailNotificationService = emailNotificationService;
             this.charityEventService = charityEventService;
+            this.userService = userService;
+            this.charityService = charityService;
         }
 
         [HttpGet]
@@ -39,51 +46,73 @@ namespace CharityHub.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserEvents")]
-        public IActionResult GetUserEvents(int userId)
+        [Route("GetEvents")]
+        public IActionResult GetCharityEvents(string name, int? category)
         {
-            var charityEvents = charityEventService.GetAllForUsers(userId);
-
-            if (charityEvents == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(charityEvents);
+            var events = charityEventService.GetCharityEvents(name, category);
+            return Json(events);
         }
 
         [HttpGet]
-        [Route("GetCharityEvents")]
-        public IActionResult GetCharityEvents(int charityId)
+        [Route("GetEventsForUser")]
+        public IActionResult GetUserCharityEventsForUser(int userId, bool isSigned)
         {
-            var charityEvents = charityEventService.GetAllForCharity(charityId);
+            var events = charityEventService.GetUserCharityEvents(userId, isSigned);
+            return Json(events);
+        }
 
-            if (charityEvents == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(charityEvents);
+        [HttpGet]
+        [Route("GetEventsForCharity")]
+        public IActionResult GetUserCharityEventsForCharity(int charityId, int ownerId)
+        {
+            var events = charityEventService.GetOrganizationCharityEvents(charityId, ownerId);
+            return Json(events);
         }
 
         [HttpPost]
         public IActionResult Add([FromBody]CharityEventInputModel inputModel)
         {
-            charityEventService.Add(inputModel);
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
+
+            int id = charityEventService.Add(inputModel);
+
+            SendEmailEventWasAdded(id);
 
             return Ok();
         }
 
-        /// <summary>
-        /// TODO: Zmienić na tylko eventId
-        /// </summary>
-        /// <param name="inputModel"></param>
-        /// <returns></returns>
         [HttpPost]
-        [Route("SendEmailNotification")]
-        public IActionResult SendEmailNotification([FromBody]SendEmailNotificationInputModel inputModel)
+        [Route("SendEmailEventNotification")]
+        public IActionResult SendEmailEventNotification([FromBody]SendEmailEventNotificationInputModel inputModel)
         {
-            emailNotificationService.SendEmailEventWasAdded(inputModel);
+            var charityEvent = charityEventService.Get(inputModel.CharityEventId);
+            string charityName = charityService.GetCharityName(charityEvent.CharityId);
+
+            foreach (var p in charityEvent.Participants)
+            {
+                if (p.IsAccepted != true)
+                {
+                    continue;
+                }
+
+                var user = userService.GetUser(p.UserId);
+
+                var sendEmailEventWasAddedModel = new SendEmailEventNotificationModel()
+                {
+                    EmailAddress = user.EmailAddress,
+                    Content = inputModel.Content,
+                    CharityEventName = charityEvent.Name,
+                    CharityName = charityName,
+                    Subject = inputModel.Subject
+                };
+
+                emailNotificationService.SendEmailEventNotification(sendEmailEventWasAddedModel);
+            }
+
+            charityEventService.AddEventNotification(inputModel);
 
             return Ok();
         }
@@ -134,6 +163,27 @@ namespace CharityHub.Api.Controllers
             }
             charityEventService.RejectUser(model.UserId.Value, model.CharityEventId.Value);
             return Ok();
+        }
+
+        private void SendEmailEventWasAdded(int id)
+        {
+            var charityEvent = charityEventService.Get(id);
+            string charityName = charityService.GetCharityName(charityEvent.CharityId);
+            var users = charityService.GetObserved(charityEvent.CharityId);
+
+            foreach (var u in users)
+            {
+                var inputModel = new SendEmailEventWasAddedModel()
+                {
+                    EndDate = charityEvent.EndDate,
+                    StartDate = charityEvent.StartDate,
+                    CharityEventName = charityEvent.Name,
+                    EmailAddress = u.EmailAddress,
+                    CharityName = charityName
+                };
+
+                emailNotificationService.SendEmailEventWasAdded(inputModel);
+            }
         }
     }
 }

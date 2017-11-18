@@ -28,10 +28,16 @@ import { UserManagementComponent } from "./myCharity/userManagement/user-managem
     NewsDetailsComponent,
     OrganizationComponent,
     OrganizationListComponent,
-    UserEventsComponent,
     UserEventListComponent,
     UserEventComponent,
+	UserManagementComponent
+<<<<<<< .mine
+    UserEventComponent,
     UserManagementComponent],
+=======
+    UserEventComponent
+    ],
+>>>>>>> .theirs
   exports: [],
   providers: [],
   schemas: []

@@ -6,8 +6,11 @@ using CharityHub.Domain.Models.EventModels;
 using AutoMapper;
 using System.Linq;
 using CharityHub.Domain;
+using Microsoft.EntityFrameworkCore;
 using CharityHub.Domain.Entities;
 using CharityHub.Domain.Models.CharityEventModels;
+using CharityHub.Domain.Models.EventParticipantModels;
+
 
 namespace CharityHub.Services
 {
@@ -24,7 +27,7 @@ namespace CharityHub.Services
             this._mapper = mapper;
         }
 
-        public void Add(CharityEventInputModel inputModel)
+        public int Add(CharityEventInputModel inputModel)
         {
             var charityEvent = _mapper.Map<CharityEventInputModel, CharityEvent>(inputModel);
 
@@ -33,8 +36,73 @@ namespace CharityHub.Services
             _context.CharityEvents.Add(charityEvent);
 
             _context.SaveChanges();
+
+            return charityEvent.Id;
         }
 
+        public IEnumerable<object> GetCharityEvents(string name, int? eventCategory)
+        {
+            var events = _context.CharityEvents
+                .Where(x => name == null || name == "" || x.Name.Contains(name))
+                .Where(x => eventCategory == null || x.EventCategory == (EventCategory)eventCategory.Value)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    CharityId = x.CharityId,
+                    EventCategory = x.EventCategory
+                })
+                .ToList();
+            return events;
+        }
+
+        public IEnumerable<object> GetUserCharityEvents(int userId, bool isSigned)
+        {
+            var events = _context.Users
+                .Include(x => x.Events)
+                .Where(x => x.Id == userId)
+                .SelectMany(x => x.Events)
+                .Where(x => (isSigned == false && x.IsAccepted == null) || (isSigned && x.IsAccepted.Value))
+                .Include(x => x.CharityEvent)
+                .Select(x => x.CharityEvent)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    CharityId = x.CharityId,
+                    EventCategory = x.EventCategory
+                })
+                .ToList();
+            return events;
+        }
+
+        public IEnumerable<object> GetOrganizationCharityEvents(int charityId, int ownerId)
+        {
+            var events = _context.Users
+                .Include(x => x.Events)
+                .Where(x => x.CharityId == charityId && x.Id == ownerId)
+                .SelectMany(x => x.Events)
+                .Include(x => x.CharityEvent)
+                .Select(x => x.CharityEvent)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    CharityId = x.CharityId,
+                    EventCategory = x.EventCategory
+                })
+                .ToList();
+            return events;
+        }
 
         public CharityEventModel Get(int id)
         {
@@ -45,33 +113,17 @@ namespace CharityHub.Services
 
             var charityEventModel = _mapper.Map<CharityEvent, CharityEventModel>(charityEvent);
 
+            ICollection<EventParticipant> participants = (from p in _context.EventParticipants
+                                                          where p.CharityEventId == id
+                                                          select p)
+                                                          .Include(x => x.User)
+                                                          .ToList(); 
+
+            charityEventModel.Participants = _mapper.Map<ICollection<EventParticipant>, ICollection<EventParticipantModel>>(participants);
+
             return charityEventModel;
         }
-
-        public ICollection<CharityEventModel> GetAllForCharity(int charityId)
-        {
-            ICollection<CharityEvent> charityEvents = (from e in _context.CharityEvents
-                                                       where e.CharityId == charityId
-                                                       select e).ToList();
-
-            var chairtyEventModels = _mapper.Map<ICollection<CharityEvent>, ICollection<CharityEventModel>>(charityEvents);
-
-            return chairtyEventModels;
-        }
-
-        public ICollection<CharityEventModel> GetAllForUsers(int userId)
-        {
-            //ICollection<CharityEvent> charityEvents = (from e in context.CharityEvents
-            //                                           where e.Participants
-            //                                           select e).ToList();
-
-            //var chairtyEventModels = mapper.Map<ICollection<CharityEvent>, ICollection<CharityEventModel>>(charityEvents);
-
-            //return chairtyEventModels;
-
-            throw new NotImplementedException();
-        }
-
+        
         public void UserSignInCharityEvent(int userId, int charityEventId)
         {
             var exists = _context.EventParticipants.Any(x => x.UserId == userId && x.CharityEventId == charityEventId);
@@ -127,6 +179,20 @@ namespace CharityHub.Services
 
             var participant = _context.EventParticipants.First(x => x.UserId == userId && x.CharityEventId == charityEventId);
             participant.IsAccepted = false;
+            _context.SaveChanges();
+        }
+
+        public void AddEventNotification(SendEmailEventNotificationInputModel inputModel)
+        {
+            var eventNotification = new EventNotification()
+            {
+                Body = inputModel.Content,
+                CharityEventId = inputModel.CharityEventId,
+                CreatedDate = DateTime.Now,
+                Subject = inputModel.Subject
+            };
+
+            _context.EventNotifications.Add(eventNotification);
             _context.SaveChanges();
         }
     }
