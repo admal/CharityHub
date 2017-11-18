@@ -9,7 +9,8 @@ import {
   MatSelectModule,
   MatCardModule,
   MatSnackBarModule,
-  MatListModule
+  MatListModule,
+  MatDialogModule
  } from '@angular/material';
 import { MatTabsModule } from '@angular/material/tabs';
 
@@ -26,7 +27,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatNativeDateModule,
     MatCardModule,
     MatSnackBarModule,
-    MatListModule
+    MatListModule,
+    MatDialogModule
     ]
 }) 
 export class MaterialDesignModule { }  
