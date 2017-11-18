@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CharityHub.Domain.Models.UserModels;
 
 namespace CharityHub.Api.Controllers
 {
@@ -84,6 +85,54 @@ namespace CharityHub.Api.Controllers
         {
             emailNotificationService.SendEmailEventWasAdded(inputModel);
 
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("SignInEvent")]
+        public IActionResult SignInCharityEvent(UserParticipateEventModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
+            charityEventService.UserSignInCharityEvent(model.UserId.Value, model.CharityEventId.Value);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("SignOutEvent")]
+        public IActionResult SignOutCharityEvent(UserParticipateEventModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
+            charityEventService.UserSignOutCharityEvent(model.UserId.Value, model.CharityEventId.Value);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("AcceptUser")]
+        public IActionResult AcceptUserInCharityEvent(UserParticipateEventModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
+            charityEventService.AcceptUser(model.UserId.Value, model.CharityEventId.Value);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("RejectUser")]
+        public IActionResult RejectUserInCharityEvent(UserParticipateEventModel model)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest();
+            }
+            charityEventService.RejectUser(model.UserId.Value, model.CharityEventId.Value);
             return Ok();
         }
     }

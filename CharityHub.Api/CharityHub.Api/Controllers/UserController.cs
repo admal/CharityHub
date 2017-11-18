@@ -16,7 +16,7 @@ namespace CharityHub.Api.Controllers
     {
         private readonly IUserService _userService;
         private readonly ICryptographyService _cryptographyService;
-        private ICharityService _charityService;
+        private readonly ICharityService _charityService;
 
         public UserController(
             IUserService userService, 

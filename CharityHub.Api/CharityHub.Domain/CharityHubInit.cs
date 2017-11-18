@@ -15,9 +15,9 @@ namespace CharityHub.Domain
 
             InitUsers(context);
             InitCharities(context);
-           
+            InitCharityEvents(context);
         }
-
+        
         private static void InitUsers(CharityHubContext context)
         {
             if (context.Users.Any())
@@ -77,6 +77,70 @@ namespace CharityHub.Domain
 
             adam.Charity = charities[0];
             rychu.Charity = charities[1];
+
+            context.SaveChanges();
+        }
+
+        private static void InitCharityEvents(CharityHubContext context)
+        {
+            if (context.CharityEvents.Any())
+            {
+                return;
+            }
+            var adam = context.Users.First(x => x.Name == "Adam");
+            var rychu = context.Users.First(x => x.Name == "Damian");
+
+            var charityTestowyRychu = context.Charities.First(x => x.Name == "Testowy Rycha");
+            var charityTestowyAdam = context.Charities.First(x => x.Name == "Testowy Adama");
+
+            var charityEvents = new CharityEvent[]
+            {
+                new CharityEvent()
+                {
+                    Name = "Zmieranie pieniędzy dla Jana",
+                    Charity = charityTestowyRychu,
+                    CreatedDate = new DateTime(2017,11,18),
+                    StartDate = new DateTime(2017,11,19),
+                    EndDate = new DateTime(2017,11,21),
+                    Description = "Jan potrzebuję dużo pieniędzy",
+                    EventCategory = EventCategory.Fundraising,
+                },
+                 new CharityEvent()
+                {
+                    Name = "Zmieranie pieniędzy dla Jana 2",
+                    Charity = charityTestowyRychu,
+                    CreatedDate = new DateTime(2017,11,18),
+                    StartDate = new DateTime(2017,11,22),
+                    EndDate = new DateTime(2017,11,24),
+                    Description = "Jan potrzebuję dużo pieniędzy",
+                    EventCategory = EventCategory.Fundraising,
+                },
+                new CharityEvent()
+                {
+                    Name = "Zmieranie jedzenia dla Jana",
+                    Charity = charityTestowyAdam,
+                    CreatedDate = new DateTime(2017,11,18),
+                    StartDate = new DateTime(2017,11,19),
+                    EndDate = new DateTime(2017,11,21),
+                    Description = "Jan potrzebuję dużo jedzenia",
+                    EventCategory = EventCategory.FoodCollection,
+                },
+                new CharityEvent()
+                {
+                    Name = "Zmieranie jedzenia dla Jana 2",
+                    Charity = charityTestowyAdam,
+                    CreatedDate = new DateTime(2017,11,18),
+                    StartDate = new DateTime(2017,11,20),
+                    EndDate = new DateTime(2017,11,21),
+                    Description = "Jan potrzebuję dużo jedzenia",
+                    EventCategory = EventCategory.FoodCollection,
+                },
+            };
+
+            foreach (var s in charityEvents)
+            {
+                context.CharityEvents.Add(s);
+            }
 
             context.SaveChanges();
         }
