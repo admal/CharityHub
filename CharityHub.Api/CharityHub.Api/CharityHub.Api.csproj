@@ -24,4 +24,16 @@
     <ProjectReference Include="..\CharityHub.Services\CharityHub.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Assets\Emails\Event\Event.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\Emails\Event\images\CharityHubLogoWithoutBorder.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Assets\EventNotification.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

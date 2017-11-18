@@ -8,6 +8,9 @@ namespace CharityHub.Tests.Services
 {
     public class CryptograpyServiceTests
     {
+        /// <summary>
+        /// Test for test
+        /// </summary>
         [Fact]
         public void HashTest()
         {

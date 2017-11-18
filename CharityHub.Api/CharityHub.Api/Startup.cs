@@ -40,6 +40,8 @@ namespace CharityHub.Api
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<ICryptographyService, CryptographyService>();
             services.AddTransient<ICharityService, CharityService>();
+            services.AddTransient<ICharityEventService, CharityEventService>();
+            services.AddTransient<IEmailNotificationService, EmailNotificationService>();
 
             services.AddSingleton(provider => new MapperConfiguration(cfg =>
             {

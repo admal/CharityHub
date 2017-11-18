@@ -24,7 +24,7 @@ namespace CharityHub.Api.Controllers
         public IActionResult GetCharities()
         {
             var charities = _charityService.GetCharities();
-            return Json(charities);
+            return Ok(charities);
         }
 
         [HttpPost]
