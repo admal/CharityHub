@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
-import { MyCharityService } from "../../../core/services/charity-service/myCharityService.service";
+import { MyCharityService } from '../../../core/services/charity-service/my-charity.service';
 
 @Component({
   selector: 'user-event-list',

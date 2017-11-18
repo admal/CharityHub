@@ -5,7 +5,7 @@ import { OrganizationModel } from './../../../core/services/charity-service/mode
 @Component({  
   selector: 'organization',
   templateUrl: './organization.component.html', 
-  styleUrls: ['./organization.component.scss']
+  styleUrls: ['./organization.component.scss', '../../charity.scss' ]
 })
 export class OrganizationComponent { 
   @Input() organizationModel: OrganizationModel;

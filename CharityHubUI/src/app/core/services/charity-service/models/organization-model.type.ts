@@ -5,4 +5,5 @@ export class OrganizationModel {
   name: string;
   description: string;
   organizationType: OrganizationType;
+  isObserving: boolean;
 } 

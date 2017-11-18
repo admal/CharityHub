@@ -23,6 +23,10 @@ export class UserService {
         return this.user !== null && typeof this.user !== 'undefined';
     }
 
+    hasOrganization() {
+        return this.isLoggedIn() && this.user.organizationId !== null && typeof this.user.organizationId !== 'undefined'  
+    }
+
     login(loginModel: LoginModel) {
         return this.http.post<User>(`${this.apiRoot}SignIn`, loginModel, { headers: this.headers }) 
             .toPromise()
@@ -31,6 +35,9 @@ export class UserService {
                 this.user.id = response.id;
                 this.user.name = response.name;
                 this.user.surname = response.surname;
+                if(response.organizationId) {
+                    this.user.organizationId = response.organizationId;
+                }
             });
     }
 

@@ -18,3 +18,22 @@ mat-form-field {
 .tab-header {
   margin-top:20px;
 }
+
+mat-card {
+  padding: 0 0 24px;
+}
+
+mat-card-header {
+  background-color: rgba(63, 81, 181, 0.1);
+  padding: 24px 24px 0;
+}
+
+mat-card-content {
+  padding: 10px 24px;
+}
+
+mat-card-actions {
+  padding: 0 24px 10px 24px;
+  margin-bottom: -10px !important;
+  text-align: center;
+}

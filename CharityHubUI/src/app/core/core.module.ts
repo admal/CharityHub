@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from './services/user-service/user.service';
+import { MyCharityService } from './services/charity-service/my-charity.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { MatIconModule } from '@angular/material';
-import { MyCharityService } from "./services/charity-service/myCharityService.service";
 import { NewsService } from "./services/news-service/news-service.service";
 
 @NgModule({

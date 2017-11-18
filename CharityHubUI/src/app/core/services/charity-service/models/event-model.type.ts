@@ -6,5 +6,6 @@ export class EventModel {
   description: string;
   startDate: Date;
   endDate: Date;
-  eventType: EventType;
+  eventCategory: EventType;
+  charityId: number;
 }

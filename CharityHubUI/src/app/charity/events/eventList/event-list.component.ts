@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MyCharityService } from "../../../core/services/charity-service/myCharityService.service";
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
+import { MyCharityService } from '../../../core/services/charity-service/my-charity.service';
 
 @Component({
   selector: 'event-list', 
@@ -10,7 +10,9 @@ import { EventModel } from "../../../core/services/charity-service/models/event-
 export class EventListComponent {
   userEvents: EventModel[];
 
-  constructor(private readonly myCharityService: MyCharityService) {
+  constructor(
+    private readonly myCharityService: MyCharityService
+  ) {
 
   }
 

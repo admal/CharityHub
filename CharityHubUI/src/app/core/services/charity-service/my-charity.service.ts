@@ -9,35 +9,44 @@ import { OrganizationType } from '../user-service/models/organization.enum';
 
 @Injectable()
 export class MyCharityService {
-  private apiRoot = 'http://localhost:5000/api/Charity/';
+  private apiRootEvent = 'http://localhost:5000/api/CharityEvent/';
+
   constructor(private http: HttpClient) {
+  }
+
+  addEvent(event: EventModel) {
+    return this.http.post(`${this.apiRootEvent}`, event, { responseType: 'text' as 'json' })
+      .toPromise();
   }
 
   getUserEvents(): Promise<EventModel[]> {
     return new Promise<EventModel[]>(resolve => {
-      resolve([{ 
+      resolve([{
         id: 1,
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu tortor in sapien suscipit ultricies vitae vel arcu. Morbi volutpat venenatis risus eu finibus. Ut dapibus felis at enim dignissim suscipit. Aliquam quis libero dolor. Ut ornare varius dolor, sit amet finibus nisi finibus sed. Aenean luctus at diam ac sollicitudin. Duis vitae placerat felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur tincidunt commodo diam, eget gravida leo lobortis sit amet. Donec condimentum facilisis arcu a semper',
         endDate: new Date(),
         startDate: new Date(),
-        eventType: EventType.Hospital,
-        name: 'event 1'
+        eventCategory: EventType.Hospital,
+        name: 'event 1',
+        organizationId: 0
       },
       {
         id: 2,
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu tortor in sapien suscipit ultricies vitae vel arcu. Morbi volutpat venenatis risus eu finibus. Ut dapibus felis at enim dignissim suscipit. Aliquam quis libero dolor. Ut ornare varius dolor, sit amet finibus nisi finibus sed. Aenean luctus at diam ac sollicitudin. Duis vitae placerat felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur tincidunt commodo diam, eget gravida leo lobortis sit amet. Donec condimentum facilisis arcu a semper',
         endDate: new Date(),
         startDate: new Date(),
-        eventType: EventType.Animals,
-        name: 'event 2'
-        },
+        eventCategory: EventType.Animals,
+        name: 'event 2',
+        organizationId: 0
+      },
       {
         id: 3,
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque eu tortor in sapien suscipit ultricies vitae vel arcu. Morbi volutpat venenatis risus eu finibus. Ut dapibus felis at enim dignissim suscipit. Aliquam quis libero dolor. Ut ornare varius dolor, sit amet finibus nisi finibus sed. Aenean luctus at diam ac sollicitudin. Duis vitae placerat felis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur tincidunt commodo diam, eget gravida leo lobortis sit amet. Donec condimentum facilisis arcu a semper',
         endDate: new Date(),
         startDate: new Date(),
-        eventType: EventType.Animals,
-        name: 'event 3'
+        eventCategory: EventType.Animals,
+        name: 'event 3',
+        organizationId: 0
       }
       ]);
     });
@@ -45,23 +54,40 @@ export class MyCharityService {
 
   getOrganizations(): Promise<OrganizationModel[]> {
     return new Promise<OrganizationModel[]>(resolve => {
-      resolve([{ 
+      resolve([{
         id: 1,
         name: "Test name 1",
         description: "My short description of my favorite organization that I am in charge of",
-        organizationType: OrganizationType.NonProfit
+        organizationType: OrganizationType.NonProfit,
+        isObserving: false
       },
-      { 
+      {
         id: 2,
         name: "Test name 2",
         description: "My short description of my favorite organization that I am in charge of",
-        organizationType: OrganizationType.Profit
+        organizationType: OrganizationType.Profit,
+        isObserving: false
       },
-      { 
+      {
         id: 3,
         name: "Test name 3",
         description: "My short description of my favorite organization that I am in charge of",
-        organizationType: OrganizationType.NonProfit
+        organizationType: OrganizationType.NonProfit,
+        isObserving: false
+      },
+      {
+        id: 4,
+        name: "Test name 3",
+        description: "My short description of my favorite organization that I am in charge of",
+        organizationType: OrganizationType.NonProfit,
+        isObserving: false
+      },
+      {
+        id: 5,
+        name: "Test name 3",
+        description: "My short description of my favorite organization that I am in charge of",
+        organizationType: OrganizationType.NonProfit,
+        isObserving: false
       }]);
     });
   }

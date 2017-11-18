@@ -18,9 +18,9 @@
         <li class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="charity/list">Wydarzenia</a>
         </li>
-        <li class="nav-item" routerLinkActive="active">
+        <li *ngIf="userService.hasOrganization()" class="nav-item" routerLinkActive="active">
           <a class="nav-link" routerLink="charity/myCharity">Moja organizacja</a>
-        </li>
+        </li> 
         <li *ngIf="userService.isLoggedIn() === false" ngbDropdown class="dropdown">
           <button class="button-dropdown" id="dropdownBasic2" ngbDropdownToggle>
             <mat-icon>account_circle</mat-icon>
