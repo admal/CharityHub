@@ -59,7 +59,7 @@ namespace CharityHub.Api.Controllers
                 BadRequest("Cannot add to db");
             }
 
-            return Ok(user);
+            return Ok();
         }
     }
 }

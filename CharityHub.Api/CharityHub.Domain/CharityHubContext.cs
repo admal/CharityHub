@@ -13,10 +13,23 @@ namespace CharityHub.Domain
         { }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Charity> Charities { get; set; }
+        public DbSet<CharityEvent> CharityEvents { get; set; }
+        public DbSet<EventNotification> EventNotifications { get; set; }
+
+
+        //moim zdaniem z dupy
+        public DbSet<EventParticipant> EventParticipants { get; set; }
+        public DbSet<User_Charity> Users_Charities { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().ToTable("Users");
+            modelBuilder.Entity<Charity>().ToTable("Charities");
+            modelBuilder.Entity<CharityEvent>().ToTable("CharityEvents");
+            modelBuilder.Entity<EventNotification>().ToTable("EventNotifications");
+            modelBuilder.Entity<EventParticipant>().ToTable("EventParticipants");
+            modelBuilder.Entity<User_Charity>().ToTable("Users_Charities");
         }
     }
 }

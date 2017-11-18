@@ -12,7 +12,7 @@ namespace CharityHub.Domain.Models.UserModels
         public string Password { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
-        //public DateTime? BornDate { get; set; }
+        //public DateTime? BirthDate { get; set; }
         /// <summary>
         /// Male, Female
         /// </summary>
