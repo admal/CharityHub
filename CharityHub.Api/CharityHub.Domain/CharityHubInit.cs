@@ -18,8 +18,9 @@ namespace CharityHub.Domain
             InitCharityEvents(context);
             InitEventParticipants(context);
             InitUserCharity(context);
+            InitEventNotification(context);
         }
-
+        
         private static void InitUsers(CharityHubContext context)
         {
             if (context.Users.Any())
@@ -48,13 +49,15 @@ namespace CharityHub.Domain
             {
                 return;
             }
+
             var adam = context.Users.First(x => x.Name == "Adam");
-            var rychu = context.Users.First(x => x.Name == "Damian");
+            var damian = context.Users.First(x => x.Name == "Damian");
+
             var charities = new Charity[]
             {
                 new Charity()
                 {
-                    Name = "Organizacja zbierania jedzenia dla bezdomnych",
+                    Name = "Organizacja zbierania jedzenia dla ubogich",
                     Description = "Celem organizacji jest zbieranie jedzenia dla bezdomnych. Jedzenie zbieramy po przez zbiórki w miejscach publicznych lub innych",
                     Category = CharityCategory.NonProfit,
                     CreatedDate = DateTime.Now,
@@ -67,8 +70,8 @@ namespace CharityHub.Domain
                     Description = "Celem organizacji jest zbieranie pieniędzy które będą przekazywane najbiedniejszych dzieci w naszej okolicy.",
                     Category = CharityCategory.Profit,
                     CreatedDate = DateTime.Now,
-                    Owner = rychu,
-                    OwnerId = rychu.Id
+                    Owner = damian,
+                    OwnerId = damian.Id
                 }
             };
             
@@ -78,7 +81,7 @@ namespace CharityHub.Domain
             }
 
             adam.Charity = charities[0];
-            rychu.Charity = charities[1];
+            damian.Charity = charities[1];
 
             context.SaveChanges();
         }
@@ -89,24 +92,25 @@ namespace CharityHub.Domain
             {
                 return;
             }
-            var charityAdam = context.Charities.First(x => x.Name == "Organizacja zbierania jedzenia dla bezdomnych");
+            var charityAdam = context.Charities.First(x => x.Name == "Organizacja zbierania jedzenia dla ubogich");
             var charityRychu = context.Charities.First(x => x.Name == "Organizacja zbierania pieniędzy dla dzieci");
 
             var charityEvents = new CharityEvent[]
             {
                 new CharityEvent()
                 {
-                    Name = "Zmieranie jedzenia dla Jana",
+                    Name = "Zbieranie jedzenia dla biednych rodziny w Warszawy",
                     Charity = charityAdam,
                     CreatedDate = new DateTime(2017,11,18),
                     StartDate = new DateTime(2017,11,19),
                     EndDate = new DateTime(2017,11,21),
-                    Description = "Jan (Lat 56) jest bezdomnym od 34 lat. Jego życie nie ułożyło się dobrze. Możemy mu pomóc. Zapraszamy",
+                    Description = "W Warszawie jest wiele ubogich rodzin u których nie starcza pieniędzy na jedzenie." +
+                                  "Możemy im pomóc. Zapraszamy",
                     EventCategory = EventCategory.FoodCollection,
                 },
                  new CharityEvent()
                 {
-                    Name = "Zmieranie jedznia dla noclegowni",
+                    Name = "Zbieranie jedznia dla noclegowni",
                     Charity = charityAdam,
                     CreatedDate = new DateTime(2017,11,18),
                     StartDate = new DateTime(2017,11,22),
@@ -116,24 +120,14 @@ namespace CharityHub.Domain
                 },
                 new CharityEvent()
                 {
-                    Name = "Zmieranie jedzenia dla Jana",
+                    Name = "Dzieci w domu dziecka potrzebują remontu łazienki",
                     Charity = charityRychu,
                     CreatedDate = new DateTime(2017,11,18),
                     StartDate = new DateTime(2017,11,19),
                     EndDate = new DateTime(2017,11,21),
-                    Description = "Jan potrzebuję dużo jedzenia",
+                    Description = "Dzieci w domu dziecka potrzebują remontu łazienki. Na remont potrzebne jest oko. 10.000zł. Jeżeli dużo osób pomoże to się uda :)",
                     EventCategory = EventCategory.FoodCollection,
-                },
-                new CharityEvent()
-                {
-                    Name = "Zmieranie jedzenia dla Jana 2",
-                    Charity = charityRychu,
-                    CreatedDate = new DateTime(2017,11,18),
-                    StartDate = new DateTime(2017,11,20),
-                    EndDate = new DateTime(2017,11,21),
-                    Description = "Jan potrzebuję dużo jedzenia",
-                    EventCategory = EventCategory.FoodCollection,
-                },
+                }
             };
 
             foreach (var s in charityEvents)
@@ -151,39 +145,60 @@ namespace CharityHub.Domain
                 return;
             }
             var adam = context.Users.First(x => x.Name == "Adam");
-            var rychu = context.Users.First(x => x.Name == "Damian");
+            var damian = context.Users.First(x => x.Name == "Damian");
+            var patryk = context.Users.First(x => x.Name == "Patryk");
+            var krystian = context.Users.First(x => x.Name == "Krystian");
 
-            var dlaJanaPieniadze = context.CharityEvents.First((x => x.Name == "Zmieranie pieniędzy dla Jana"));
-            var dlaJanaJedzenie = context.CharityEvents.First((x => x.Name == "Zmieranie jedzenia dla Jana"));
+            var dlaJanaJedzenie = context.CharityEvents.First((x => x.Name == "Zbieranie jedzenia dla biednych rodziny w Warszawy"));
+            var dlaNoclegowniJedzenie = context.CharityEvents.First((x => x.Name == "Zbieranie jedznia dla noclegowni"));
+            var naRemontLazienki = context.CharityEvents.First((x => x.Name == "Dzieci w domu dziecka potrzebują remontu łazienki"));
 
             var eventParticipants = new EventParticipant[]
             {
                 new EventParticipant()
                 {
-                    User = adam,
+                    User = damian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     IsAccepted = false,
-                    CharityEvent = dlaJanaPieniadze
+                    CharityEvent = dlaJanaJedzenie
                 },
                 new EventParticipant()
                 {
-                    User = rychu,
+                    User = patryk,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     IsAccepted = true,
-                    CharityEvent = dlaJanaPieniadze
+                    CharityEvent = dlaJanaJedzenie
                 },
                 new EventParticipant()
                 {
-                    User = adam,
+                    User = krystian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     IsAccepted = false,
                     CharityEvent = dlaJanaJedzenie
                 },
                 new EventParticipant()
                 {
-                    User = rychu,
+                    User = patryk,
                     ParticipationRequestDate = new DateTime(2017,11,18),
-                    CharityEvent = dlaJanaJedzenie
+                    CharityEvent = dlaNoclegowniJedzenie
+                },
+                new EventParticipant()
+                {
+                    User = damian,
+                    ParticipationRequestDate = new DateTime(2017,11,18),
+                    CharityEvent = dlaNoclegowniJedzenie
+                },
+                new EventParticipant()
+                {
+                    User = krystian,
+                    ParticipationRequestDate = new DateTime(2017,11,18),
+                    CharityEvent = naRemontLazienki
+                },
+                new EventParticipant()
+                {
+                    User = adam,
+                    ParticipationRequestDate = new DateTime(2017,11,18),
+                    CharityEvent = naRemontLazienki
                 },
             };
 
@@ -204,15 +219,69 @@ namespace CharityHub.Domain
 
             var user_Charities = new User_Charity[]{
                 new User_Charity(){ CharityId = 1, UserId = 2},
-                new User_Charity(){ CharityId = 1, UserId = 3},
                 new User_Charity(){ CharityId = 1, UserId = 4},
-                new User_Charity(){ CharityId = 2, UserId = 1},
-                new User_Charity(){ CharityId = 2, UserId = 4},
+                new User_Charity(){ CharityId = 2, UserId = 2},
+                new User_Charity(){ CharityId = 2, UserId = 3},
+                new User_Charity(){ CharityId = 3, UserId = 2},
+                new User_Charity(){ CharityId = 3, UserId = 1},
             };
 
             foreach (var s in user_Charities)
             {
                 context.Users_Charities.Add(s);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InitEventNotification(CharityHubContext context)
+        {
+            if (context.EventNotifications.Any())
+            {
+                return;
+            }
+
+            var eventNotifications = new EventNotification[]{
+                new EventNotification()
+                {
+                    Subject = "Zbiórka",
+                    CreatedDate = new DateTime(2017,11,18,12,32,12),
+                    Body = "Przy pałacu kultury o godzinie 12:30. Zapraszam!",
+                    CharityEventId = 1,
+                },
+                new EventNotification()
+                {
+                    Subject = "Zmiana terminu",
+                    CreatedDate = new DateTime(2017,11,18,13,32,12),
+                    Body = "Zbiórka jednak o 14:00. Z góry przepraszamy",
+                    CharityEventId = 1,
+                },
+                new EventNotification()
+                {
+                    Subject = "Rodzaj jedzenia",
+                    CreatedDate = new DateTime(2017,11,19,12,32,12),
+                    Body = "Prosimy o nie przynoszenie produktów z krótkim terminem przydatności",
+                    CharityEventId = 2,
+                },
+                new EventNotification()
+                {
+                    Subject = "Zbiórka",
+                    CreatedDate = new DateTime(2017,11,18,11,32,12),
+                    Body = "W centrum o godzinie 10:30. Zapraszam!",
+                    CharityEventId = 2,
+                },
+                new EventNotification()
+                {
+                    Subject = "Pieniądze",
+                    CreatedDate = new DateTime(2017,11,20,12,32,12),
+                    Body = "Pieniądze przekazujemy jedynie po przez przelew na konto",
+                    CharityEventId = 3,
+                },
+            };
+
+            foreach (var s in eventNotifications)
+            {
+                context.EventNotifications.Add(s);
             }
 
             context.SaveChanges();
