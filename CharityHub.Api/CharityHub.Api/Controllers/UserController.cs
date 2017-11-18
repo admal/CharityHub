@@ -58,7 +58,7 @@ namespace CharityHub.Api.Controllers
             }
 
             var user = _userService.Add(inputModel);
-            if (inputModel.AddOrganisation)
+            if (inputModel.AddOrganization)
             {
                 _charityService.AddCharity(new CharityAddEditModel()
                 {
