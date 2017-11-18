@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-    { path: 'user', loadChildren: 'app/home/home.module#HomeModule' },
+  { path: 'user', loadChildren: 'app/home/home.module#HomeModule' },
+  { path: 'charity', loadChildren: 'app/charity/charity.module#CharityModule' }
 ];
 
 @NgModule({
