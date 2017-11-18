@@ -18,7 +18,7 @@ namespace CharityHub.Domain.Models.UserModels
         /// </summary>
         //public string Sex { get; set; } 
 
-        public bool AddOrganisation { get; set; }
+        public bool AddOrganization { get; set; }
 
         public string OrganizationName { get; set; }
         public string OrganizationDescription { get; set; }
