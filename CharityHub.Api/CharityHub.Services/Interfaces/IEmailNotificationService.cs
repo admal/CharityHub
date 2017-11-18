@@ -7,6 +7,7 @@ namespace CharityHub.Services.Interfaces
 {
     public interface IEmailNotificationService
     {
-        void SendEmailEventWasAdded(SendEmailNotificationInputModel emailAddress);
+        void SendEmailEventWasAdded(SendEmailEventWasAddedModel inputModel);
+        void SendEmailEventNotification(SendEmailEventNotificationModel inputModel);
     }
 }

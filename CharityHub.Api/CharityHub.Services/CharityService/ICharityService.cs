@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using CharityHub.Domain.Models.Charity;
+using CharityHub.Domain.Models.UserModels;
 
 namespace CharityHub.Services.CharityService
 {
@@ -7,6 +8,7 @@ namespace CharityHub.Services.CharityService
     {
         void AddCharity(CharityAddEditModel model);
         IEnumerable<CharityModel> GetCharities();
-        CharityModel GetCharity(int charityId);
+        string GetCharityName(int charityId);
+        IEnumerable<UserModel> GetObserved(int charityId);
     }
 }

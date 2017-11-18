@@ -26,7 +26,7 @@ namespace CharityHub.Services
             this._mapper = mapper;
         }
 
-        public void Add(CharityEventInputModel inputModel)
+        public int Add(CharityEventInputModel inputModel)
         {
             var charityEvent = _mapper.Map<CharityEventInputModel, CharityEvent>(inputModel);
 
@@ -35,6 +35,8 @@ namespace CharityHub.Services
             _context.CharityEvents.Add(charityEvent);
 
             _context.SaveChanges();
+
+            return charityEvent.Id;
         }
 
 
@@ -137,6 +139,20 @@ namespace CharityHub.Services
 
             var participant = _context.EventParticipants.First(x => x.UserId == userId && x.CharityEventId == charityEventId);
             participant.IsAccepted = false;
+            _context.SaveChanges();
+        }
+
+        public void AddEventNotification(SendEmailEventNotificationInputModel inputModel)
+        {
+            var eventNotification = new EventNotification()
+            {
+                Body = inputModel.Content,
+                CharityEventId = inputModel.CharityEventId,
+                CreatedDate = DateTime.Now,
+                Subject = inputModel.Subject
+            };
+
+            _context.EventNotifications.Add(eventNotification);
             _context.SaveChanges();
         }
     }

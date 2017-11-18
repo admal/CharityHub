@@ -4,16 +4,27 @@ using System.Linq;
 using CharityHub.Domain;
 using CharityHub.Domain.Entities;
 using CharityHub.Domain.Models.Charity;
+using Microsoft.EntityFrameworkCore;
+using CharityHub.Domain.Models.UserModels;
+using CharityHub.Services.Interfaces;
+using AutoMapper;
 
 namespace CharityHub.Services.CharityService
 {
     public class CharityService : ICharityService
     {
         private readonly CharityHubContext _context;
+        private IUserService userService;
+        private IMapper mapper;
 
-        public CharityService(CharityHubContext context)
+        public CharityService(
+            CharityHubContext context,
+            IUserService userService,
+            IMapper mapper)
         {
             _context = context;
+            this.userService = userService;
+            this.mapper = mapper;
         }
 
         public IEnumerable<CharityModel> GetCharities()
@@ -49,19 +60,29 @@ namespace CharityHub.Services.CharityService
             _context.SaveChanges();
         }
 
-        public CharityModel GetCharity(int charityId)
+        public string GetCharityName(int charityId)
         {
             return _context.Charities
                 .Where(x => x.Id == charityId)
-               .Select(x => new CharityModel()
-               {
-                   Id = x.Id,
-                   Name = x.Name,
-                   Description = x.Description,
-                   OwnerId = x.OwnerId,
-                   Category = (int)x.Category,
-                   OwnerName = x.Owner.Name
-               }).SingleOrDefault();
+               .Select(x => x.Owner.Name).SingleOrDefault();
+        }
+
+        public IEnumerable<UserModel> GetObserved(int charityId)
+        {
+            var charity = _context.Charities
+                .Where(x => x.Id == charityId)
+                .Include(x => x.ObservedByUsers)
+                .Select(x => x)
+                .SingleOrDefault();
+
+            var users = new List<UserModel>();
+
+            foreach(var o in charity.ObservedByUsers)
+            {
+                users.Add(userService.GetUser(o.UserId));
+            }
+
+            return users;
         }
     }
 }

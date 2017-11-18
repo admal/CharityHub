@@ -17,8 +17,9 @@ namespace CharityHub.Domain
             InitCharities(context);
             InitCharityEvents(context);
             InitEventParticipants(context);
+            InitUserCharity(context);
         }
-        
+
         private static void InitUsers(CharityHubContext context)
         {
             if (context.Users.Any())
@@ -189,6 +190,29 @@ namespace CharityHub.Domain
             foreach (var s in eventParticipants)
             {
                 context.EventParticipants.Add(s);
+            }
+
+            context.SaveChanges();
+        }
+
+        private static void InitUserCharity(CharityHubContext context)
+        {
+            if (context.Users_Charities.Any())
+            {
+                return;
+            }
+
+            var user_Charities = new User_Charity[]{
+                new User_Charity(){ CharityId = 1, UserId = 2},
+                new User_Charity(){ CharityId = 1, UserId = 3},
+                new User_Charity(){ CharityId = 1, UserId = 4},
+                new User_Charity(){ CharityId = 2, UserId = 1},
+                new User_Charity(){ CharityId = 2, UserId = 4},
+            };
+
+            foreach (var s in user_Charities)
+            {
+                context.Users_Charities.Add(s);
             }
 
             context.SaveChanges();

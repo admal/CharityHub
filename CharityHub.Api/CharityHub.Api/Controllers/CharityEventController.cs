@@ -81,38 +81,42 @@ namespace CharityHub.Api.Controllers
                 return BadRequest();
             }
 
-            charityEventService.Add(inputModel);
+            int id = charityEventService.Add(inputModel);
+
+            SendEmailEventWasAdded(id);
 
             return Ok();
         }
 
         [HttpPost]
-        [Route("SendEmailNotification/{id}")]
-        public IActionResult SendEmailNotification(int id)
+        [Route("SendEmailEventNotification")]
+        public IActionResult SendEmailEventNotification([FromBody]SendEmailEventNotificationInputModel inputModel)
         {
-            if (ModelState.IsValid == false)
+            var charityEvent = charityEventService.Get(inputModel.CharityEventId);
+            string charityName = charityService.GetCharityName(charityEvent.CharityId);
+
+            foreach (var p in charityEvent.Participants)
             {
-                return BadRequest();
-            }
-
-            var charityEvent = charityEventService.Get(id);
-
-            foreach(var p in charityEvent.Participants)
-            {
-                var user = userService.GetUser(p.UserId);
-                var charity = charityService.GetCharity(charityEvent.CharityId);
-
-                SendEmailNotificationInputModel inputModel = new SendEmailNotificationInputModel()
+                if (p.IsAccepted != true)
                 {
-                    EndDate = charityEvent.EndDate,
-                    StartDate = charityEvent.StartDate,
-                    CharityEventName = charityEvent.Name,
+                    continue;
+                }
+
+                var user = userService.GetUser(p.UserId);
+
+                var sendEmailEventWasAddedModel = new SendEmailEventNotificationModel()
+                {
                     EmailAddress = user.EmailAddress,
-                    CharityName = charity.Name
+                    Content = inputModel.Content,
+                    CharityEventName = charityEvent.Name,
+                    CharityName = charityName,
+                    Subject = inputModel.Subject
                 };
 
-                emailNotificationService.SendEmailEventWasAdded(inputModel);
+                emailNotificationService.SendEmailEventNotification(sendEmailEventWasAddedModel);
             }
+
+            charityEventService.AddEventNotification(inputModel);
 
             return Ok();
         }
@@ -163,6 +167,27 @@ namespace CharityHub.Api.Controllers
             }
             charityEventService.RejectUser(model.UserId.Value, model.CharityEventId.Value);
             return Ok();
+        }
+
+        private void SendEmailEventWasAdded(int id)
+        {
+            var charityEvent = charityEventService.Get(id);
+            string charityName = charityService.GetCharityName(charityEvent.CharityId);
+            var users = charityService.GetObserved(charityEvent.CharityId);
+
+            foreach (var u in users)
+            {
+                var inputModel = new SendEmailEventWasAddedModel()
+                {
+                    EndDate = charityEvent.EndDate,
+                    StartDate = charityEvent.StartDate,
+                    CharityEventName = charityEvent.Name,
+                    EmailAddress = u.EmailAddress,
+                    CharityName = charityName
+                };
+
+                emailNotificationService.SendEmailEventWasAdded(inputModel);
+            }
         }
     }
 }
