@@ -1,13 +1,11 @@
-﻿using CharityHub.Domain.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CharityHub.Domain.Entities
+namespace CharityHub.Domain.Models.UserModels
 {
-    public class User
+    public class UserModel
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public string LastName { get; set; }
         public DateTime BornDate { get; set; }
