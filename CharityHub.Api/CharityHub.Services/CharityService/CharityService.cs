@@ -17,9 +17,11 @@ namespace CharityHub.Services.CharityService
             _context = context;
         }
 
-        public IEnumerable<CharityModel> GetCharities()
+        public IEnumerable<CharityModel> GetCharities(string name, int? category)
         {
             var charities = _context.Charities
+                .Where(x => name == null || name == "" || x.Name.Contains(name))
+                .Where(x => category == null || x.Category == (CharityCategory)category)
                 .Select(x => new CharityModel()
                 {
                     Id = x.Id,

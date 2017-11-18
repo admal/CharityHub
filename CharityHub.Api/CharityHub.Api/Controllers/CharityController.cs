@@ -21,9 +21,9 @@ namespace CharityHub.Api.Controllers
         }
         
         [HttpGet]
-        public IActionResult GetCharities()
+        public IActionResult GetCharities(string name, int? category)
         {
-            var charities = _charityService.GetCharities();
+            var charities = _charityService.GetCharities(name, category);
             return Ok(charities);
         }
 

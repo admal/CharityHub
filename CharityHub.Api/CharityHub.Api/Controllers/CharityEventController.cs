@@ -46,31 +46,27 @@ namespace CharityHub.Api.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserEvents")]
-        public IActionResult GetUserEvents(int userId)
+        [Route("GetEvents")]
+        public IActionResult GetCharityEvents(string name, int? category)
         {
-            var charityEvents = charityEventService.GetAllForUsers(userId);
-
-            if (charityEvents == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(charityEvents);
+            var events = charityEventService.GetCharityEvents(name, category);
+            return Json(events);
         }
 
         [HttpGet]
-        [Route("GetCharityEvents")]
-        public IActionResult GetCharityEvents(int charityId)
+        [Route("GetEventsForUser")]
+        public IActionResult GetUserCharityEventsForUser(int userId, bool isSigned)
         {
-            var charityEvents = charityEventService.GetAllForCharity(charityId);
+            var events = charityEventService.GetUserCharityEvents(userId, isSigned);
+            return Json(events);
+        }
 
-            if (charityEvents == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(charityEvents);
+        [HttpGet]
+        [Route("GetEventsForCharity")]
+        public IActionResult GetUserCharityEventsForCharity(int charityId, int ownerId)
+        {
+            var events = charityEventService.GetOrganizationCharityEvents(charityId, ownerId);
+            return Json(events);
         }
 
         [HttpPost]
@@ -163,30 +159,6 @@ namespace CharityHub.Api.Controllers
             }
             charityEventService.RejectUser(model.UserId.Value, model.CharityEventId.Value);
             return Ok();
-        }
-
-        [HttpGet]
-        [Route("GetEventsForUser")]
-        public IActionResult GetUserCharityEventsForUser(int userId, bool? isSigned)
-        {
-            var events = charityEventService.GetUserCharityEvents(userId, isSigned);
-            return Json(events);
-        }
-
-        [HttpGet]
-        [Route("GetEventsForCharity")]
-        public IActionResult GetUserCharityEventsForCharity(int charityId, int ownerId)
-        {
-            var events = charityEventService.GetOrganizationCharityEvents(charityId, ownerId);
-            return Json(events);
-        }
-
-        [HttpGet]
-        [Route("GetEvents")]
-        public IActionResult GetUserCharityEvents(string name)
-        {
-            var events = charityEventService.GetCharityEvents(name);
-            return Json(events);
         }
     }
 }

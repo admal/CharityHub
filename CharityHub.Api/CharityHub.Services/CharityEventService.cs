@@ -38,10 +38,11 @@ namespace CharityHub.Services
             _context.SaveChanges();
         }
 
-        public IEnumerable<object> GetCharityEvents(string name)
+        public IEnumerable<object> GetCharityEvents(string name, int? eventCategory)
         {
             var events = _context.CharityEvents
                 .Where(x => name == null || name == "" || x.Name.Contains(name))
+                .Where(x => eventCategory == null || x.EventCategory == (EventCategory)eventCategory.Value)
                 .Select(x => new
                 {
                     Id = x.Id,
@@ -56,13 +57,13 @@ namespace CharityHub.Services
             return events;
         }
 
-        public IEnumerable<object> GetUserCharityEvents(int userId, bool? isSigned)
+        public IEnumerable<object> GetUserCharityEvents(int userId, bool isSigned)
         {
             var events = _context.Users
                 .Include(x => x.Events)
                 .Where(x => x.Id == userId)
                 .SelectMany(x => x.Events)
-                .Where(x => isSigned == null || x.IsAccepted == isSigned.Value)
+                .Where(x => (isSigned == false && x.IsAccepted == null) || (isSigned && x.IsAccepted.Value))
                 .Include(x => x.CharityEvent)
                 .Select(x => x.CharityEvent)
                 .Select(x => new
