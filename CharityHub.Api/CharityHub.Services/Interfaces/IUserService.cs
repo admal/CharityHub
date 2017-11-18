@@ -9,7 +9,7 @@ namespace CharityHub.Services.Interfaces
     public interface IUserService
     {
         UserModel GetUser(int id);
-        User GetUser(string login, string passwordHash);
+        UserModel GetUser(string login, string passwordHash);
         User Add(SignUpInputModel inputModel);
     }
 }

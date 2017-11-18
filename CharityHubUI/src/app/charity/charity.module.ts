@@ -7,18 +7,21 @@ import { MyCharityComponent } from "./myCharity/my-charity.component";
 import { NewEventComponent } from "./myCharity/newEvent/new-event.component";
 import { NewsComponent } from "./news/news.component";
 import { NewsDetailsComponent } from "./news/news-details/news-details.components";
+import { OrganizationComponent } from './events/organization/organization.component';
 
 @NgModule({
   imports: [
     SharedModule,
     CharityRoutingModule
   ],
+
   declarations: [EventListComponent,
     EventComponent,
     MyCharityComponent,
     NewEventComponent,
     NewsComponent,
-    NewsDetailsComponent],
+    NewsDetailsComponent,
+    OrganizationComponent],
   exports: [],
   providers: [],
   schemas: []

@@ -31,7 +31,7 @@ namespace CharityHub.Services.CharityService
             return charities;
         }
 
-        public void AddCharity(CharityModel model)
+        public void AddCharity(CharityAddEditModel model)
         {
             var newCharity = new Charity();
             newCharity.Name = model.Name;

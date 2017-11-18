@@ -26,17 +26,5 @@ namespace CharityHub.Api.Controllers
             var charities = _charityService.GetCharities();
             return Json(charities);
         }
-
-        [HttpPost]
-        public IActionResult AddCharity([FromBody] CharityModel model)
-        {
-            if (ModelState.IsValid == false)
-            {
-                return BadRequest();
-            }
-            _charityService.AddCharity(model);
-            return Ok();
-        }
-
     }
 }

@@ -17,5 +17,11 @@ namespace CharityHub.Domain.Models.UserModels
         /// Male, Female
         /// </summary>
         //public string Sex { get; set; } 
+
+        public bool AddOrganization { get; set; }
+
+        public string OrganizationName { get; set; }
+        public string OrganizationDescription { get; set; }
+        public int OrganizationType { get; set; }
     }
 }
