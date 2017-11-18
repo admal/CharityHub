@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
-import { EventType } from "../../../core/services/charity-service/models/event-type.type";
+import { MatDialog } from '@angular/material';
+import { EventNewsDialogComponent } from "./event-news-dialog.component";
 
 @Component({
   selector: 'event',
@@ -10,6 +11,10 @@ import { EventType } from "../../../core/services/charity-service/models/event-t
 export class EventComponent {
   @Input() eventModel: EventModel;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
+  }
+
+  showNewsDialog(id: number) {
+    this.dialog.open(EventNewsDialogComponent, null);
   }
 }
