@@ -1,0 +1,13 @@
+mat-form-field {
+    margin: 5px 0;
+    width: 100%;
+}
+mat-tab-group {
+    max-width: 900px;
+    margin: 0 auto;
+}
+.mat-tab-label {
+    display: flex;
+    flex-grow: 1; 
+    max-width: 300px;
+}
