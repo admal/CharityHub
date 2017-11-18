@@ -3,6 +3,7 @@ import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './services/user-service/user.service';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -19,7 +20,7 @@ import { MatIconModule } from '@angular/material';
     ],
     declarations: [ToolbarComponent],
     exports: [ToolbarComponent],
-    providers: [],
+    providers: [UserService], 
     schemas: [NO_ERRORS_SCHEMA]
 })
 export class CoreModule {
