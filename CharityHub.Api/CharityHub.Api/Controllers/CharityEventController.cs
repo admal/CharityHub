@@ -164,5 +164,29 @@ namespace CharityHub.Api.Controllers
             charityEventService.RejectUser(model.UserId.Value, model.CharityEventId.Value);
             return Ok();
         }
+
+        [HttpGet]
+        [Route("GetEventsForUser")]
+        public IActionResult GetUserCharityEventsForUser(int userId, bool? isSigned)
+        {
+            var events = charityEventService.GetUserCharityEvents(userId, isSigned);
+            return Json(events);
+        }
+
+        [HttpGet]
+        [Route("GetEventsForCharity")]
+        public IActionResult GetUserCharityEventsForCharity(int charityId, int ownerId)
+        {
+            var events = charityEventService.GetOrganizationCharityEvents(charityId, ownerId);
+            return Json(events);
+        }
+
+        [HttpGet]
+        [Route("GetEvents")]
+        public IActionResult GetUserCharityEvents(string name)
+        {
+            var events = charityEventService.GetCharityEvents(name);
+            return Json(events);
+        }
     }
 }
