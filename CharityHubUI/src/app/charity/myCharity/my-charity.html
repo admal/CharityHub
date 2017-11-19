@@ -4,9 +4,9 @@
       <my-organization></my-organization>
     </mat-tab>
     <mat-tab label="Wydarzenia">
-      <event-list></event-list>
-    </mat-tab>
+      <event-list [userEvents]="userEvents" ></event-list>
+    </mat-tab> 
     <mat-tab label="Nowe wydarzenie">
-      <new-event></new-event>
+      <new-event (onAddedEvent)="onAddedEvent($event)"></new-event> 
     </mat-tab>
   </mat-tab-group>

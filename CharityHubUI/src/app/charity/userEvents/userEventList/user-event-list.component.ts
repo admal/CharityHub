@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
 import { MyCharityService } from '../../../core/services/charity-service/my-charity.service';
+import { UserService } from '../../../core/services/user-service/user.service';
 
 @Component({
   selector: 'user-event-list',
@@ -12,13 +13,24 @@ export class UserEventListComponent {
 
   events: EventModel[];
 
-  constructor(private readonly myCharityService: MyCharityService) {
+  constructor(
+    private readonly myCharityService: MyCharityService,
+    private readonly userService: UserService
+  ) {
   }
 
   ngOnInit() {
-    this.myCharityService.getUserEvents()
-      .then((events: EventModel[]) => {
-        this.events = events;
-      })
+    let isLoggedIn = this.userService.isLoggedIn();
+    if (isLoggedIn) {
+      this.myCharityService.getUserEventsSigned(this.userService.user.id, this.areSearchEvents)
+        .then((events: EventModel[]) => { 
+          this.events = events;
+        })
+    } else {
+      this.myCharityService.getEvents()
+        .then((events: EventModel[]) => {
+          this.events = events;
+        }) 
+    }
   }
 }
