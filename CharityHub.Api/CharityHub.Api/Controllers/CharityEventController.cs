@@ -74,6 +74,14 @@ namespace CharityHub.Api.Controllers
             return Json(events);
         }
 
+        [HttpGet]
+        [Route("GetPendinEventsForUser")]
+        public IActionResult GetPendinEventsForUser(int userId)
+        {
+            var events = charityEventService.GetPendinEventsForUser(userId);
+            return Json(events);
+        }
+
         [HttpPost]
         public IActionResult Add([FromBody]CharityEventInputModel inputModel)
         {
