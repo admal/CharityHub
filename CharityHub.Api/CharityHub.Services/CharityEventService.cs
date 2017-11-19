@@ -107,6 +107,29 @@ namespace CharityHub.Services
             return events;
         }
 
+        public IEnumerable<object> GetPendinEventsForUser(int userId)
+        {
+            var events = _context.Users
+                .Include(x => x.Events)
+                .Where(x => x.Id == userId)
+                .SelectMany(x => x.Events)
+                .Where(x => x.IsAccepted == false)
+                .Include(x => x.CharityEvent)
+                .Select(x => x.CharityEvent)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    CharityId = x.CharityId,
+                    EventCategory = x.EventCategory
+                })
+                .ToList();
+            return events;
+        }
+
         public IEnumerable<object> GetOrganizationCharityEvents(int charityId)
         {
             var events = _context.Charities

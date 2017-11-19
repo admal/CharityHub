@@ -132,4 +132,7 @@ export class MyCharityService {
     return this.http.post(`${this.apiRootEvent}AcceptUser?userId=${userId}&charityEventId=${charityEventId}`, { responseType: 'text' as 'json' })
       .toPromise();
   }
+  
+  getPendingEvents(userId: number) {
+  }
 }

@@ -18,7 +18,7 @@ namespace CharityHub.Services
                 msg.From = new MailAddress("GymRegressTeam@gmail.com");
                 msg.To.Add(inputModel.EmailAddress);
                 msg.IsBodyHtml = true;
-                msg.Subject = "Organizacja " + inputModel.CharityName + " dodała wiadomość w wydarzeniu " + inputModel.CharityEventName;
+                msg.Subject = inputModel.CharityName + " dodała wiadomość w wydarzeniu " + inputModel.CharityEventName;
 
                 using (StreamReader reader = File.OpenText(AppDomain.CurrentDomain.BaseDirectory
                     + @"Assets\EventNotification.html"))
@@ -42,7 +42,7 @@ namespace CharityHub.Services
                 msg.From = new MailAddress("GymRegressTeam@gmail.com");
                 msg.To.Add(inputModel.EmailAddress);
                 msg.IsBodyHtml = true;
-                msg.Subject = "Organizacja " + inputModel.CharityName + " zorganizowała wydarzenie " + inputModel.CharityEventName;
+                msg.Subject = inputModel.CharityName + " zorganizowała wydarzenie " + inputModel.CharityEventName;
 
                 using (StreamReader reader = File.OpenText(AppDomain.CurrentDomain.BaseDirectory
                     + @"Assets\EventWasAdded.html"))
