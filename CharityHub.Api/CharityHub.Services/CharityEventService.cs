@@ -160,7 +160,7 @@ namespace CharityHub.Services
             var charityEventModel = _mapper.Map<CharityEvent, CharityEventModel>(charityEvent);
 
             ICollection<EventParticipant> participants = (from p in _context.EventParticipants
-                                                          where p.CharityEventId == id && p.IsAccepted != null
+                                                          where p.CharityEventId == id && p.IsAccepted != false
                                                           select p)
                                                           .Include(x => x.User)
                                                           .ToList(); 
