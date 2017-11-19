@@ -162,5 +162,8 @@ export class MyCharityService {
   }
 
   getPendingEvents(userId: number) {
+    return this.http.get(`${this.apiRootEvent}GetPendinEventsForUser?userId=${userId}`)
+      .toPromise();
+    
   }
 }
