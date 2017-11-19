@@ -1,5 +1,4 @@
 <div class="container">
-  {{getModel()}}
   <form #newEventForm="ngForm" (ngSubmit)="onSubmit(newEventForm)">
     <mat-form-field>
       <input matInput placeholder="Nazwa" [(ngModel)]="newEventModel.name" type="text" name="name" #name="ngModel">
