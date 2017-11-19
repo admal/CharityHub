@@ -14,7 +14,6 @@ import { UserEventComponent } from "./userEvents/userEvent/user-event.component"
 import { UserManagementComponent } from "./myCharity/userManagement/user-management.component";
 import { MyOrganizationComponent } from './myOrganization/my-organization.compontent';
 import { UserEventsComponent } from "./userEvents/user-events.component";
-import { EventNewsDialogComponent } from "./events/event/event-news-dialog.component";
 
 @NgModule({
   imports: [
@@ -35,8 +34,7 @@ import { EventNewsDialogComponent } from "./events/event/event-news-dialog.compo
     UserEventComponent,
     UserEventsComponent,
     UserManagementComponent,
-    MyOrganizationComponent,
-    EventNewsDialogComponent
+    MyOrganizationComponent
   ],
   exports: [],
   providers: [],

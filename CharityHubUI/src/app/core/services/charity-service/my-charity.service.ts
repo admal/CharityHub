@@ -7,13 +7,13 @@ import { EventType } from "./models/event-type.type";
 import { OrganizationModel } from './models/organization-model.type';
 import { OrganizationType } from '../user-service/models/organization.enum';
 import { ManageEventModel } from "./models/manage-event-model.type";
+import { SendNewsModel } from "./models/send-news-model.type";
 
 @Injectable()
 export class MyCharityService {
   private apiRootEvent = 'http://localhost:5000/api/CharityEvent/';
   private apiRootCharity = 'http://localhost:5000/api/Charity/';
-
-
+  private apiEventNotification = 'http://localhost:5000/api/EventNotification/';
   constructor(private http: HttpClient) {
   }
 
@@ -132,5 +132,10 @@ export class MyCharityService {
         }]
       });
     });
+  }
+
+  sendEventNews(sendNewsModel: SendNewsModel) {
+    return this.http.post(`${this.apiEventNotification}AddEmailEventNotification`, sendNewsModel, { responseType: 'text' as 'json' })
+      .toPromise();
   }
 }
