@@ -16,7 +16,7 @@
         <div class="user-field">{{user.name}} {{user.surname}}</div>
         <div class="user-field">{{user.emailAddress}}</div>
         <div class="user-field">
-          <button mat-raised-button color="primary" *ngIf="user.isAccepted === false" (click)="acceptUser(user)">Zaakceptuj</button>
+          <button mat-raised-button color="primary" *ngIf="user.isAccepted === null" (click)="acceptUser(user)">Zaakceptuj</button>
         </div>
       </mat-list-item>
     </mat-list>
