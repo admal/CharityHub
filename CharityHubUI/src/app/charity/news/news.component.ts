@@ -20,13 +20,15 @@ export class NewsComponent {
 
   ngOnInit() {
     this.isLoading = true;
-
     let userId = this.userService.user.id;
 
     this.newsService.getNews(userId)
       .then((news: NewsModel[]) => {
+        for (let i = 0; i < news.length; i++) {
+          news[i].date = new Date(news[i].date);
+        }
         this.news = news;
         this.isLoading = false;
-      })
+      });
   }
 }

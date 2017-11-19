@@ -6,14 +6,14 @@ import { NewsModel } from "./models/news-model.type";
 
 @Injectable()
 export class NewsService {
-  private apiNewsRoot = 'http://localhost:5000/api/EventNotification/GetUserNotifications/';
+  private apiNewsRoot = 'http://localhost:5000/api/EventNotification/GetUserNotifications';
   private headers: HttpHeaders;
 
   constructor(private http: HttpClient) {
   }
 
   getNews(userId: number) {
-    return this.http.get<NewsModel>(`${this.apiNewsRoot}${userId}`)
+    return this.http.get<NewsModel[]>(`${this.apiNewsRoot}?userId=${userId}`)
       .toPromise();
   }
 
