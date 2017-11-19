@@ -62,7 +62,7 @@ namespace CharityHub.Api.Controllers
         [Route("GetEventsForCharity")]
         public IActionResult GetUserCharityEventsForCharity(int charityId, int ownerId)
         {
-            var events = charityEventService.GetOrganizationCharityEvents(charityId, ownerId);
+            var events = charityEventService.GetOrganizationCharityEvents(charityId);
             return Json(events);
         }
 

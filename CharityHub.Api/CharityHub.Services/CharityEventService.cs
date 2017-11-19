@@ -82,14 +82,12 @@ namespace CharityHub.Services
             return events;
         }
 
-        public IEnumerable<object> GetOrganizationCharityEvents(int charityId, int ownerId)
+        public IEnumerable<object> GetOrganizationCharityEvents(int charityId)
         {
-            var events = _context.Users
+            var events = _context.Charities
+                .Where(x => x.Id == charityId)
                 .Include(x => x.Events)
-                .Where(x => x.CharityId == charityId && x.Id == ownerId)
                 .SelectMany(x => x.Events)
-                .Include(x => x.CharityEvent)
-                .Select(x => x.CharityEvent)
                 .Select(x => new
                 {
                     Id = x.Id,

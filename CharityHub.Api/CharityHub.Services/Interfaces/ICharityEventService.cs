@@ -18,7 +18,7 @@ namespace CharityHub.Services.Interfaces
         void RejectUser(int userId, int charityEventId);
         void AddEventNotification(SendEmailEventNotificationInputModel inputModel);
         IEnumerable<object> GetUserCharityEvents(int userId, bool isSigned);
-        IEnumerable<object> GetOrganizationCharityEvents(int charityId, int ownerId);
+        IEnumerable<object> GetOrganizationCharityEvents(int charityId);
         IEnumerable<object> GetCharityEvents(string name, int? category);
     }
 }
