@@ -149,7 +149,7 @@ namespace CharityHub.Domain
             var patryk = context.Users.First(x => x.Name == "Patryk");
             var krystian = context.Users.First(x => x.Name == "Krystian");
 
-            var dlaJanaJedzenie = context.CharityEvents.First((x => x.Name == "Zbieranie jedzenia dla biednych rodziny w Warszawy"));
+            var jedzenieDlaBiednych = context.CharityEvents.First((x => x.Name == "Zbieranie jedzenia dla biednych rodziny w Warszawy"));
             var dlaNoclegowniJedzenie = context.CharityEvents.First((x => x.Name == "Zbieranie jedznia dla noclegowni"));
             var naRemontLazienki = context.CharityEvents.First((x => x.Name == "Dzieci w domu dziecka potrzebują remontu łazienki"));
 
@@ -160,45 +160,49 @@ namespace CharityHub.Domain
                     User = damian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     IsAccepted = false,
-                    CharityEvent = dlaJanaJedzenie
+                    CharityEvent = jedzenieDlaBiednych
                 },
                 new EventParticipant()
                 {
                     User = patryk,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     IsAccepted = true,
-                    CharityEvent = dlaJanaJedzenie
+                    CharityEvent = jedzenieDlaBiednych
                 },
                 new EventParticipant()
                 {
                     User = krystian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     IsAccepted = true,
-                    CharityEvent = dlaJanaJedzenie
+                    CharityEvent = jedzenieDlaBiednych
                 },
                 new EventParticipant()
                 {
                     User = patryk,
                     ParticipationRequestDate = new DateTime(2017,11,18),
-                    CharityEvent = dlaNoclegowniJedzenie
+                    CharityEvent = dlaNoclegowniJedzenie,
+                    IsAccepted = true
                 },
                 new EventParticipant()
                 {
                     User = damian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
-                    CharityEvent = dlaNoclegowniJedzenie
+                    CharityEvent = dlaNoclegowniJedzenie,
+                    IsAccepted = false
                 },
                 new EventParticipant()
                 {
                     User = krystian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
-                    CharityEvent = naRemontLazienki
+                    CharityEvent = naRemontLazienki,
+                    IsAccepted = false
                 },
                 new EventParticipant()
                 {
                     User = adam,
                     ParticipationRequestDate = new DateTime(2017,11,18),
-                    CharityEvent = naRemontLazienki
+                    CharityEvent = naRemontLazienki,
+                    IsAccepted = true
                 },
             };
 
