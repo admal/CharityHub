@@ -3,6 +3,7 @@ import { EventModel } from "../../../core/services/charity-service/models/event-
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SendNewsModel } from "../../../core/services/charity-service/models/send-news-model.type";
 import { MyCharityService } from '../../../core/services/charity-service/my-charity.service';
+import { MatSnackBarConfig, MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'event',
@@ -15,7 +16,11 @@ export class EventComponent {
   subjectText: string;
   eventId: number;
   modalRef: any;
-  constructor(private modalService: NgbModal, private myCharityService: MyCharityService) {
+  constructor(
+    private modalService: NgbModal, 
+    private myCharityService: MyCharityService,
+    public snackBar: MatSnackBar
+  ) {
   }
 
   showNewsDialog(content, id: number) {
@@ -31,7 +36,12 @@ export class EventComponent {
       subject: this.subjectText
     };
 
-    this.myCharityService.sendEventNews(sendNewsModel).then();
+    this.myCharityService.sendEventNews(sendNewsModel)
+      .then(() => {
+        let config = new MatSnackBarConfig();
+        config.duration = 3000;
+        this.snackBar.open('Email został wysłany.', undefined, config);
+      });
 
     this.newsText = null;
     this.eventId = null;

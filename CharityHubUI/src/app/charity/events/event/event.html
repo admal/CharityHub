@@ -11,9 +11,9 @@
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="showNewsDialog(content, eventModel.id)">Wyślij powiadomienie</button>
     <button mat-raised-button color="primary" routerLink="event/{{eventModel.id}}">Wolontariusze</button>
-  </mat-card-actions>
+  </mat-card-actions> 
 </mat-card>
-
+ 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Nowe powiadomienie</h4>

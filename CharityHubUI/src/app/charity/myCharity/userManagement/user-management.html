@@ -12,11 +12,11 @@
         <div class="user-field">Mail</div>
         <div class="user-field"></div>
       </mat-list-item>
-      <mat-list-item *ngFor="let user of manageEventModel.users" >
-        <div class="user-field">{{user.firstName}} &nbsp;{{user.lastName}}</div>
-        <div class="user-field">{{user.mail}}</div>
+      <mat-list-item *ngFor="let user of manageEventModel.participants" >
+        <div class="user-field">{{user.name}} {{user.surname}}</div>
+        <div class="user-field">{{user.emailAddress}}</div>
         <div class="user-field">
-          <button mat-raised-button color="primary" *ngIf="user.isAccepted">Zaakceptuj</button>
+          <button mat-raised-button color="primary" *ngIf="user.isAccepted === false" (click)="acceptUser(user)">Zaakceptuj</button>
         </div>
       </mat-list-item>
     </mat-list>
