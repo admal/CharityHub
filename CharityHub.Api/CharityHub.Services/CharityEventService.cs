@@ -31,7 +31,7 @@ namespace CharityHub.Services
         {
             var charityEvent = _mapper.Map<CharityEventInputModel, CharityEvent>(inputModel);
 
-            charityEvent.StartDate = DateTime.Now;
+            charityEvent.CreatedDate = DateTime.Now;
 
             _context.CharityEvents.Add(charityEvent);
 
