@@ -1,9 +1,12 @@
 <h2 class="text-center">Wydarzenia</h2>
 <mat-tab-group [dynamicHeight]="true">
   <mat-tab label="Znajdź wydarzenia">
-    <user-event-list [areSearchEvents]="false"></user-event-list>
+    <user-event-list [areSearchEvents]="false" [arePending]="false"></user-event-list>
   </mat-tab> 
   <mat-tab *ngIf="userService.isLoggedIn()" label="Moje wydarzenia">
-      <user-event-list [areSearchEvents]="true"></user-event-list>
+      <user-event-list [areSearchEvents]="true" [arePending]="false"></user-event-list>
+  </mat-tab>
+  <mat-tab *ngIf="userService.isLoggedIn()" label="W trakcie akceptacji">
+    <user-event-list [areSearchEvents]="false" [arePending]="true"></user-event-list>
   </mat-tab> 
 </mat-tab-group>
