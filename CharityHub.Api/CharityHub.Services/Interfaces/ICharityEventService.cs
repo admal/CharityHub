@@ -21,5 +21,6 @@ namespace CharityHub.Services.Interfaces
         IEnumerable<object> GetOrganizationCharityEvents(int charityId);
         IEnumerable<object> GetCharityEvents(string name, int? category);
         IEnumerable<object> GetAvailableCharityEvents(int userId);
+        IEnumerable<object> GetPendinEventsForUser(int userId);
     }
 }
