@@ -99,7 +99,7 @@ namespace CharityHub.Domain
             {
                 new CharityEvent()
                 {
-                    Name = "Zbieranie jedzenia dla biednych rodziny w Warszawy",
+                    Name = "Zbieranie jedzenia dla biednych rodziny w Warszawie",
                     Charity = charityAdam,
                     CreatedDate = new DateTime(2017,11,18),
                     StartDate = new DateTime(2017,11,19),
@@ -149,7 +149,7 @@ namespace CharityHub.Domain
             var patryk = context.Users.First(x => x.Name == "Patryk");
             var krystian = context.Users.First(x => x.Name == "Krystian");
 
-            var jedzenieDlaBiednych = context.CharityEvents.First((x => x.Name == "Zbieranie jedzenia dla biednych rodziny w Warszawy"));
+            var jedzenieDlaBiednych = context.CharityEvents.First((x => x.Name == "Zbieranie jedzenia dla biednych rodziny w Warszawie"));
             var dlaNoclegowniJedzenie = context.CharityEvents.First((x => x.Name == "Zbieranie jedznia dla noclegowni"));
             var naRemontLazienki = context.CharityEvents.First((x => x.Name == "Dzieci w domu dziecka potrzebują remontu łazienki"));
 
@@ -159,7 +159,6 @@ namespace CharityHub.Domain
                 {
                     User = damian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
-                    IsAccepted = false,
                     CharityEvent = jedzenieDlaBiednych
                 },
                 new EventParticipant()
@@ -188,14 +187,12 @@ namespace CharityHub.Domain
                     User = damian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     CharityEvent = dlaNoclegowniJedzenie,
-                    IsAccepted = false
                 },
                 new EventParticipant()
                 {
                     User = krystian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     CharityEvent = naRemontLazienki,
-                    IsAccepted = false
                 },
                 new EventParticipant()
                 {
