@@ -82,6 +82,31 @@ namespace CharityHub.Services
             return events;
         }
 
+        public IEnumerable<object> GetAvailableCharityEvents(int userId)
+        {
+            var exludedEvents = _context.EventParticipants
+                .Where(x => x.UserId == userId)
+                .Include(x => x.CharityEvent)
+                .Select(x => x.CharityEvent);
+
+            var events = _context.CharityEvents
+                .Where(x => exludedEvents.All(y => y.Id != x.Id))
+                .Include(x => x.Charity)
+                .Where(x => x.Charity.OwnerId != userId)
+                .Select(x => new
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StartDate = x.StartDate,
+                    EndDate = x.EndDate,
+                    CharityId = x.CharityId,
+                    EventCategory = x.EventCategory
+                })
+                .ToList();
+            return events;
+        }
+
         public IEnumerable<object> GetOrganizationCharityEvents(int charityId)
         {
             var events = _context.Charities

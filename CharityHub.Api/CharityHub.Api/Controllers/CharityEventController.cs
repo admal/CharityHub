@@ -66,6 +66,14 @@ namespace CharityHub.Api.Controllers
             return Json(events);
         }
 
+        [HttpGet]
+        [Route("GetAvailableEventsForUser")]
+        public IActionResult GetAvailableCharityEventsForUser(int userId)
+        {
+            var events = charityEventService.GetAvailableCharityEvents(userId);
+            return Json(events);
+        }
+
         [HttpPost]
         public IActionResult Add([FromBody]CharityEventInputModel inputModel)
         {

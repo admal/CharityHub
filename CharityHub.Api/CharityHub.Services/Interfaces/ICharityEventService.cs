@@ -20,5 +20,6 @@ namespace CharityHub.Services.Interfaces
         IEnumerable<object> GetUserCharityEvents(int userId, bool isSigned);
         IEnumerable<object> GetOrganizationCharityEvents(int charityId);
         IEnumerable<object> GetCharityEvents(string name, int? category);
+        IEnumerable<object> GetAvailableCharityEvents(int userId);
     }
 }
