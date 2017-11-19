@@ -1,11 +1,13 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded" style="background: #f97c7c; color: #ffffff">
   <div class="container">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" [attr.aria-expanded]="!isCollapsed" [ngClass]="{'collapsed': isCollapsed}"
             (click)="toggleCollapse()" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand">CharityHub</a>
+	<a class="navbar-brand">
+		<img src="assets/CharityHubLogo.png" width="150px" />
+	</a>
 
     <div class="collapse navbar-collapse" [ngClass]="{'show': isCollapsed}" [attr.aria-expanded]="!isCollapsed" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
@@ -22,7 +24,7 @@
           <a class="nav-link" routerLink="charity/myCharity">Moja organizacja</a>
         </li> 
         <li *ngIf="userService.isLoggedIn() === false" ngbDropdown class="dropdown">
-          <button class="button-dropdown" id="dropdownBasic2" ngbDropdownToggle>
+          <button class="button-dropdown" id="dropdownBasic2" style="color: #ffffff;" ngbDropdownToggle>
             <mat-icon>account_circle</mat-icon>
             Konto
           </button>

@@ -1,0 +1,16 @@
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+	background-color: #f97c7c !important;
+}
+
+.navbar .navbar-toggleable-md .navbar-light .bg-faded, .footer{
+	background: #f97c7c !important; 
+	color: #ffffff !important;
+}
+
+.nav-link {
+	color: #ffffff !important;
+}
+
+.nav-item.active {
+    background-color: rgba(181, 181, 181, 0.3) !important;
+}
