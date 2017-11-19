@@ -6,7 +6,7 @@
   <mat-card-content>
     {{eventModel.description}}
   </mat-card-content>
-  <mat-card-actions>
-    <button mat-raised-button color="primary" *ngIf="isSearchEvent" (click)="addToEvent(eventModel.id)">Zapisz się</button>
+  <mat-card-actions> 
+    <button mat-raised-button color="primary" *ngIf="isSearchEvent === false && userService.isLoggedIn()" (click)="addToEvent(eventModel.id)">Zapisz się</button>
   </mat-card-actions>
 </mat-card>

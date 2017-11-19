@@ -14,17 +14,20 @@ export class UserEventComponent {
 
   constructor(
     private readonly myCharityService: MyCharityService,
-    private readonly userService: UserService
+    public readonly userService: UserService
   ) {
 
   }
 
-  addToEvent(eventId:number) {
-      let userId = 1; 
-      this.myCharityService.addToEvent(userId, eventId)
-        .then(() => {
-          this.eventModel.id = -1;
-        })
+  addToEvent(eventId: number) {
+    let userId;
+    if (this.userService.isLoggedIn()) {
+      userId = this.userService.user.id;
+    }
+    this.myCharityService.addToEvent(userId, eventId)
+      .then(() => {
+        this.eventModel.id = -1;
+      })
   }
 
 }
