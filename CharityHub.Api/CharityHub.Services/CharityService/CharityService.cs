@@ -45,24 +45,21 @@ namespace CharityHub.Services.CharityService
             return charities;
         }
 
+        //TODO: poprawić nazwe metody
         public IEnumerable<CharityModel> GetObservedCharities(int userId)
         {
-            var charities = _context.Users
-                .Where(x => x.Id == userId)
-                .Include(x => x.ObservedCharities)
-                .SelectMany(x => x.ObservedCharities)
-                .Include(x => x.Charity)
-                .Select(x => x.Charity)
+            var charities = _context.Charities
                 .Include(x => x.Owner)
+                .Include(x => x.ObservedByUsers)
                 .Select(x => new CharityModel()
                 {
                     Id = x.Id,
                     OwnerId = x.OwnerId,
                     Description = x.Description,
                     Name = x.Name,
-                    OrganizationType = (int)x.Category,
+                    OrganizationType = (int) x.Category,
                     OwnerName = x.Owner.Name,
-                    IsObserving = x.ObservedByUsers.Select(y => y.Id).Contains(x.Id)
+                    IsObserving = x.ObservedByUsers.Select(y => y.UserId).Contains(userId)
                 })
                 .ToList();
             return charities;
