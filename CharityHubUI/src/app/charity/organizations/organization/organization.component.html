@@ -9,6 +9,7 @@
         {{organizationModel.description}}
     </mat-card-content>
     <mat-card-actions>
-        <button mat-raised-button color="primary">Obserwuj</button>
+        <button (click)="observeOrganization()" *ngIf="userService.isLoggedIn() && organizationModel.isObserving === false" mat-raised-button color="primary">Obserwuj</button>
+        <button (click)="stopObserveOrganization()" *ngIf="userService.isLoggedIn() && organizationModel.isObserving" mat-raised-button color="warn">Przestań obserwować</button>
     </mat-card-actions>
 </mat-card>

@@ -21,7 +21,7 @@ namespace CharityHub.Services
                 msg.Subject = inputModel.CharityName + " dodała wiadomość w wydarzeniu " + inputModel.CharityEventName;
 
                 using (StreamReader reader = File.OpenText(AppDomain.CurrentDomain.BaseDirectory
-                    + @"Assets\EventNotification.html"))
+                    + @"Assets/EventNotification.html"))
                 {
                     string mailText = reader.ReadToEnd()
                         .Replace("_Content_", inputModel.Content)
@@ -45,7 +45,7 @@ namespace CharityHub.Services
                 msg.Subject = inputModel.CharityName + " zorganizowała wydarzenie " + inputModel.CharityEventName;
 
                 using (StreamReader reader = File.OpenText(AppDomain.CurrentDomain.BaseDirectory
-                    + @"Assets\EventWasAdded.html"))
+                    + @"Assets/EventWasAdded.html"))
                 {
                     string mailText = reader.ReadToEnd()
                         .Replace("_Organization_", inputModel.CharityName)

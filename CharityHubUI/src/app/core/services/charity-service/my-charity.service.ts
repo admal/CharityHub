@@ -135,4 +135,14 @@ export class MyCharityService {
   
   getPendingEvents(userId: number) {
   }
+  
+  observeCharity(userId: number, charityEventId: number) {
+    return this.http.post(`${this.apiRootCharity}Observe?userId=${userId}&charityId=${charityEventId}`, { responseType: 'text' as 'json' })
+      .toPromise();
+  }
+
+  stopObserveCharity(userId: number, charityEventId: number) {
+    return this.http.post(`${this.apiRootCharity}Observe?userId=${userId}&charityId=${charityEventId}`, { responseType: 'text' as 'json' })
+      .toPromise();
+  }
 }
