@@ -10,7 +10,7 @@ import { ManageEventModel } from "../../../core/services/charity-service/models/
 })
 export class UserManagementComponent {
   manageEventModel: ManageEventModel;
-
+  isLoading: boolean;
   @Input() eventId: number;
 
   constructor(private readonly charityService: MyCharityService) {
@@ -18,9 +18,11 @@ export class UserManagementComponent {
   }
 
   ngOnInit() {
+    this.isLoading = true;
     this.charityService.getEventDetails(this.eventId)
       .then((eventModel) => {
         this.manageEventModel = eventModel;
+        this.isLoading = false;
       });
   }
 }

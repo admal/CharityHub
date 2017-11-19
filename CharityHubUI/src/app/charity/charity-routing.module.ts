@@ -13,7 +13,7 @@ import { UserManagementComponent } from "./myCharity/userManagement/user-managem
     { path: 'myCharity', component: MyCharityComponent },
     { path: 'news', component: NewsComponent },
     { path: 'organizations', component: OrganizationListComponent },
-    { path: 'event/:eventId', component: UserManagementComponent }
+    { path: 'myCharity/event/:eventId', component: UserManagementComponent }
   ])],
   exports: [RouterModule]
 })

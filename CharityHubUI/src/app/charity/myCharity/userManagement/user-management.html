@@ -1,4 +1,4 @@
-<mat-card class="user-management-container">
+<mat-card class="user-management-container" *ngIf="!isLoading">
   <mat-card-header>
     <mat-card-title>
       <h3>{{manageEventModel.name}}</h3>
