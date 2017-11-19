@@ -16,6 +16,8 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   manageEventModel: EventModel;
   isLoading: boolean;
 
+  private eventId: number;
+
   private sub: any;
 
   constructor(
@@ -29,9 +31,9 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.isLoading = true;
 
     this.sub = this.route.params.subscribe(params => {
-      let id = +params['eventId'];
+      this.eventId = +params['eventId'];
 
-      this.charityService.getEventDetails(id)
+      this.charityService.getEventDetails(this.eventId)
         .then((eventModel) => {
           this.manageEventModel = eventModel;
           this.isLoading = false;
@@ -44,7 +46,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
   acceptUser(user: ParticipantModel) {
-    this.charityService.acceptUserInEvent(user.userId, this.manageEventModel.charityId)
+    this.charityService.acceptUserInEvent(user.userId, this.eventId)
       .then(() => {
           user.isAccepted = true;
       });

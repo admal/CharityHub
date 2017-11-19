@@ -42,4 +42,17 @@ export class OrganizationComponent {
                 this.organizationModel.isObserving = false;
             });
     }
+
+    isVisible() {
+        if(this.userService.isLoggedIn()) {
+            let user = this.userService.user;
+            if(user.organizationId) {
+                return user.organizationId !== this.organizationModel.id;
+            } else {
+                return true;
+            }
+        } else {
+            return true; 
+        }
+    }
 }

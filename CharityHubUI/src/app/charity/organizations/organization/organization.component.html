@@ -1,4 +1,4 @@
-<mat-card class="organization-container">
+<mat-card *ngIf="isVisible()" class="organization-container">
     <mat-card-header>
         <mat-card-title>
             <h3>{{organizationModel.name}}</h3>
@@ -9,7 +9,9 @@
         {{organizationModel.description}}
     </mat-card-content>
     <mat-card-actions>
-        <button (click)="observeOrganization()" *ngIf="userService.isLoggedIn() && organizationModel.isObserving === false" mat-raised-button color="primary">Obserwuj</button>
-        <button (click)="stopObserveOrganization()" *ngIf="userService.isLoggedIn() && organizationModel.isObserving" mat-raised-button color="warn">Przestań obserwować</button>
+        <button (click)="observeOrganization()" *ngIf="userService.isLoggedIn() && organizationModel.isObserving === false" mat-raised-button
+            color="primary">Obserwuj</button>
+        <button (click)="stopObserveOrganization()" *ngIf="userService.isLoggedIn() && organizationModel.isObserving" mat-raised-button
+            color="warn">Przestań obserwować</button>
     </mat-card-actions>
 </mat-card>
