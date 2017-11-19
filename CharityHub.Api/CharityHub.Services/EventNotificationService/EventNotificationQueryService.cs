@@ -24,6 +24,7 @@ namespace CharityHub.Services.EventNotificationService
                 .Where(x =>
                     x.CharityEvent.Participants.Where(y => y.IsAccepted == true && y.UserId == userId).Count() > 0
                 )
+                .OrderByDescending(x => x.CreatedDate)
                 .Select(x => new EventNotificationModel()
                 {
                     Id = x.Id,
