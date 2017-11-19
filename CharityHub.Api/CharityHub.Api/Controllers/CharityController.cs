@@ -48,7 +48,7 @@ namespace CharityHub.Api.Controllers
         public IActionResult ObserveCharity(int userId, int charityId)
         {
             _charityService.ObserveCharity(userId, charityId);
-            return Ok();
+            return Json(Ok());
         }
 
         [HttpPost]
@@ -56,7 +56,7 @@ namespace CharityHub.Api.Controllers
         public IActionResult CancelObserveCharity(int userId, int charityId)
         {
             _charityService.CancelObserveCharity(userId, charityId);
-            return Ok();
+            return Json(Ok());
         }
     }
 }
