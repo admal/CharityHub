@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!isLoading">
   <div *ngFor="let newsModel of news">
     <news [newsModel]="newsModel"></news>
   </div>
