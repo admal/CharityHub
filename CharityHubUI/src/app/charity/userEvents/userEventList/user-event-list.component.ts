@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
 import { MyCharityService } from '../../../core/services/charity-service/my-charity.service';
 import { UserService } from '../../../core/services/user-service/user.service';
@@ -13,13 +13,27 @@ export class UserEventListComponent {
   @Input() arePending: boolean;
   events: EventModel[];
 
+  @Output() onRefreshEvents = new EventEmitter<void>();
+
   constructor(
     private readonly myCharityService: MyCharityService,
     private readonly userService: UserService
   ) {
   }
 
+  onAddedEvent(event) {
+    this.onEventAdded();
+  }
+
+  onEventAdded() {
+    this.onRefreshEvents.emit();
+  }
+
   ngOnInit() {
+     this.initEvents();
+  }
+
+  initEvents() {
     let isLoggedIn = this.userService.isLoggedIn();
     if (isLoggedIn && this.areSearchEvents && !this.arePending) {
       this.myCharityService.getUserEventsSigned(this.userService.user.id, this.areSearchEvents)

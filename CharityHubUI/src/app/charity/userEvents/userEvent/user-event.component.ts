@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, Input, Output, EventEmitter } from "@angular/core";
 import { EventModel } from "../../../core/services/charity-service/models/event-model.type";
 import { UserService } from "../../../core/services/user-service/user.service";
 import { MyCharityService } from "../../../core/services/charity-service/my-charity.service";
@@ -12,6 +12,9 @@ export class UserEventComponent {
   @Input() eventModel: EventModel;
   @Input() isSearchEvent: boolean;
   @Input() isPending: boolean;
+
+  @Output() onAddedEvent = new EventEmitter<void>();
+
   constructor(
     private readonly myCharityService: MyCharityService,
     public readonly userService: UserService
@@ -27,7 +30,8 @@ export class UserEventComponent {
     this.myCharityService.addToEvent(userId, eventId)
       .then(() => {
         this.eventModel.id = -1;
-      })
+        this.onAddedEvent.emit();
+      });
   }
 
 }
