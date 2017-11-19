@@ -136,7 +136,11 @@ export class MyCharityService {
   getPendingEvents(userId: number) {
     return this.http.get(`${this.apiRootEvent}GetPendinEventsForUser?userId=${userId}`)
       .toPromise();
-    
+  }
+
+  getObservedOrganizations(userId: number) {
+    return this.http.get<OrganizationModel[]>(`${this.apiRootCharity}GetObserved?userId=${userId}`)
+      .toPromise();
   }
   
   observeCharity(userId: number, charityEventId: number) {
@@ -145,7 +149,7 @@ export class MyCharityService {
   }
 
   stopObserveCharity(userId: number, charityEventId: number) {
-    return this.http.post(`${this.apiRootCharity}Observe?userId=${userId}&charityId=${charityEventId}`, { responseType: 'text' as 'json' })
+    return this.http.post(`${this.apiRootCharity}CancelObserve?userId=${userId}&charityId=${charityEventId}`, { responseType: 'text' as 'json' })
       .toPromise();
   }
 }

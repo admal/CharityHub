@@ -31,7 +31,8 @@ namespace CharityHub.Api.Controllers
         [HttpGet]
         public IActionResult GetCharities(int? userId, string name, int? category)
         {
-            var charities = _charityService.GetCharities(userId, name, category);
+            var charities = _charityService.GetCharities(userId, name, category).ToList();
+
             return Ok(charities);
         }
 
@@ -56,7 +57,7 @@ namespace CharityHub.Api.Controllers
         public IActionResult CancelObserveCharity(int userId, int charityId)
         {
             _charityService.CancelObserveCharity(userId, charityId);
-            return Json(Ok());
+            return Json(Ok()); 
         }
     }
 }

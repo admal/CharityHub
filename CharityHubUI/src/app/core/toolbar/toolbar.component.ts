@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user-service/user.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'toolbar',
@@ -9,6 +10,7 @@ import { UserService } from '../services/user-service/user.service';
 export class ToolbarComponent {
     constructor(
         public readonly userService: UserService,
+        private readonly router: Router
     ) { }
 
     isCollapsed: boolean = false;
@@ -19,6 +21,7 @@ export class ToolbarComponent {
 
     logout() {
         this.userService.logout();
+        this.router.navigate(['/']);
     }
 
     getUserName() {

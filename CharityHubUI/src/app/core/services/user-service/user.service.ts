@@ -43,7 +43,6 @@ export class UserService {
 
     logout() {
         this.user = null;
-        window.location.reload();
     }
 
     registerUser(user: RegisterModel) {
