@@ -11,7 +11,7 @@ import { MyCharityService } from "../../../core/services/charity-service/my-char
 export class UserEventComponent {
   @Input() eventModel: EventModel;
   @Input() isSearchEvent: boolean;
-
+  @Input() isPending: boolean;
   constructor(
     private readonly myCharityService: MyCharityService,
     public readonly userService: UserService
@@ -21,7 +21,7 @@ export class UserEventComponent {
 
   addToEvent(eventId: number) {
     let userId;
-    if (this.userService.isLoggedIn()) {
+    if (this.userService.isLoggedIn() && !this.isPending) {
       userId = this.userService.user.id;
     }
     this.myCharityService.addToEvent(userId, eventId)

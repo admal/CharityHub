@@ -25,19 +25,33 @@ export class UserEventListComponent {
       this.myCharityService.getUserEventsSigned(this.userService.user.id, this.areSearchEvents)
         .then((events: EventModel[]) => {
           this.events = events;
+          this.changeDateFormat();
         });
     } else if (isLoggedIn && !this.areSearchEvents && !this.arePending) {
       this.myCharityService.getUserAvailableEvents(this.userService.user.id)
         .then((events: EventModel[]) => {
           this.events = events;
+          this.changeDateFormat();
         });
     } else if (isLoggedIn && !this.areSearchEvents && this.arePending) {
-      
+      this.myCharityService.getPendingEvents(this.userService.user.id)
+        .then((events: EventModel[]) => {
+          this.events = events;
+          this.changeDateFormat();
+        });
     } else {
       this.myCharityService.getEvents()
         .then((events: EventModel[]) => {
           this.events = events;
+          this.changeDateFormat();
         });
+    }
+  }
+
+  changeDateFormat() {
+    for (let i = 0; i < this.events.length; i++) {
+      this.events[i].startDate = new Date(this.events[i].startDate);
+      this.events[i].endDate = new Date(this.events[i].endDate);
     }
   }
 }

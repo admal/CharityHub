@@ -113,7 +113,7 @@ namespace CharityHub.Services
                 .Include(x => x.Events)
                 .Where(x => x.Id == userId)
                 .SelectMany(x => x.Events)
-                .Where(x => x.IsAccepted == false)
+                .Where(x => x.IsAccepted == null)
                 .Include(x => x.CharityEvent)
                 .Select(x => x.CharityEvent)
                 .Select(x => new
