@@ -1,7 +1,8 @@
-
 <mat-card class="card-container">
   <mat-card-header>
-    <mat-card-title><h3>{{eventModel.name}}</h3></mat-card-title>
+    <mat-card-title>
+      <h3>{{eventModel.name}}</h3>
+    </mat-card-title>
     <mat-card-subtitle>{{eventModel.startDate.toLocaleDateString("en-US")}} - {{eventModel.endDate.toLocaleDateString("en-US")}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
@@ -31,4 +32,3 @@
     <button type="button" class="btn btn-outline-dark" (click)="sendMessage()">Send</button>
   </div>
 </ng-template>
-

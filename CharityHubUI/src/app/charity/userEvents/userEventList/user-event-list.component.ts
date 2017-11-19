@@ -21,16 +21,21 @@ export class UserEventListComponent {
 
   ngOnInit() {
     let isLoggedIn = this.userService.isLoggedIn();
-    if (isLoggedIn) {
+    if (isLoggedIn && this.areSearchEvents) {
       this.myCharityService.getUserEventsSigned(this.userService.user.id, this.areSearchEvents)
-        .then((events: EventModel[]) => { 
+        .then((events: EventModel[]) => {
+          this.events = events; 
+        })
+    } else if (isLoggedIn && this.areSearchEvents === false) {
+      this.myCharityService.getUserAvailableEvents(this.userService.user.id)
+        .then((events: EventModel[]) => {
           this.events = events;
         })
     } else {
       this.myCharityService.getEvents()
         .then((events: EventModel[]) => {
           this.events = events;
-        }) 
+        })
     }
   }
 }

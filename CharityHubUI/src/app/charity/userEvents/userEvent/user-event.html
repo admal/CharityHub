@@ -1,4 +1,4 @@
-<mat-card class="card-container">
+<mat-card class="card-container" *ngIf="eventModel.id !== -1">
   <mat-card-header>
     <mat-card-title><h3>{{eventModel.name}}</h3></mat-card-title>
     <mat-card-subtitle>{{eventModel.startDate.toLocaleDateString("en-US")}} - {{eventModel.endDate.toLocaleDateString("en-US")}}</mat-card-subtitle>
@@ -7,6 +7,6 @@
     {{eventModel.description}}
   </mat-card-content>
   <mat-card-actions>
-    <button mat-raised-button color="primary" *ngIf="isSearchEvent">Zapisz się</button>
+    <button mat-raised-button color="primary" *ngIf="isSearchEvent" (click)="addToEvent(eventModel.id)">Zapisz się</button>
   </mat-card-actions>
 </mat-card>

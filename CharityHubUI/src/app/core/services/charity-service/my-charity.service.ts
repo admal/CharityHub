@@ -22,8 +22,12 @@ export class MyCharityService {
       .toPromise();
   }
 
-  addToEvent(event: EventModel) {
-    return this.http.post(`${this.apiRootEvent}`, event, { responseType: 'text' as 'json' })
+  addToEvent(userId: number, charityEventId: number) {
+    let params = new HttpParams();
+    params = params.append('userId', userId.toString());
+    params = params.append('charityEventId', charityEventId.toString());
+
+    return this.http.post(`${this.apiRootEvent}SignInEvent?userId=${userId}&charityEventId=${charityEventId}`, { responseType: 'text' as 'json' })
       .toPromise();
   }
 
@@ -34,8 +38,10 @@ export class MyCharityService {
 
   getUserEvents(charityId: number, ownerId: number) {
     let params = new HttpParams();
-    params = params.append('charityId', charityId.toString());
-    params = params.append('ownerId', ownerId.toString());
+    if (charityId !== null && typeof charityId !== 'undefined') {
+      params = params.append('charityId', charityId.toString());
+      params = params.append('ownerId', ownerId.toString());
+    }
 
     return this.http.get<EventModel[]>(`${this.apiRootEvent}GetEventsForCharity`, { params: params })
       .toPromise()
@@ -97,7 +103,23 @@ export class MyCharityService {
         });
 
         return response;
-      }); 
+      });
+  }
+
+  getUserAvailableEvents(userId: number) {
+    let params = new HttpParams();
+    params = params.append('userId', userId.toString());
+
+    return this.http.get<EventModel[]>(`${this.apiRootEvent}GetAvailableEventsForUser`, { params: params })
+      .toPromise()
+      .then(response => {
+        response.forEach(x => {
+          x.startDate = new Date(x.startDate);
+          x.endDate = new Date(x.endDate);
+        });
+
+        return response;
+      });
   }
 
   getEventDetails(id: number): Promise<ManageEventModel> {

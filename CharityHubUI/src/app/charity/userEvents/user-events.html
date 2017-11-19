@@ -1,9 +1,9 @@
 <h2 class="text-center">Moja organizacja</h2>
 <mat-tab-group [dynamicHeight]="true">
   <mat-tab label="Znajdź wydarzenia">
-    <user-event-list [areSearchEvents]="true"></user-event-list>
+    <user-event-list [areSearchEvents]="false"></user-event-list>
   </mat-tab> 
   <mat-tab *ngIf="userService.isLoggedIn()" label="Moje wydarzenia">
-    <user-event-list [areSearchEvents]="false"></user-event-list>
-  </mat-tab>
+      <user-event-list [areSearchEvents]="true"></user-event-list>
+  </mat-tab> 
 </mat-tab-group>

@@ -98,7 +98,7 @@ namespace CharityHub.Api.Controllers
                 return BadRequest();
             }
             charityEventService.UserSignInCharityEvent(model.UserId.Value, model.CharityEventId.Value);
-            return Ok();
+            return Json(Ok());
         }
 
         [HttpPost]
