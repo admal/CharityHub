@@ -160,4 +160,7 @@ export class MyCharityService {
     return this.http.post(`${this.apiEventNotification}AddEmailEventNotification`, sendNewsModel, { responseType: 'text' as 'json' })
       .toPromise();
   }
+
+  getPendingEvents(userId: number) {
+  }
 }

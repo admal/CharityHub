@@ -10,7 +10,7 @@ import { UserService } from '../../../core/services/user-service/user.service';
 })
 export class UserEventListComponent {
   @Input() areSearchEvents: boolean;
-
+  @Input() arePending: boolean;
   events: EventModel[];
 
   constructor(
@@ -21,21 +21,23 @@ export class UserEventListComponent {
 
   ngOnInit() {
     let isLoggedIn = this.userService.isLoggedIn();
-    if (isLoggedIn && this.areSearchEvents) {
+    if (isLoggedIn && this.areSearchEvents && !this.arePending) {
       this.myCharityService.getUserEventsSigned(this.userService.user.id, this.areSearchEvents)
         .then((events: EventModel[]) => {
-          this.events = events; 
-        })
-    } else if (isLoggedIn && this.areSearchEvents === false) {
+          this.events = events;
+        });
+    } else if (isLoggedIn && !this.areSearchEvents && !this.arePending) {
       this.myCharityService.getUserAvailableEvents(this.userService.user.id)
         .then((events: EventModel[]) => {
           this.events = events;
-        })
+        });
+    } else if (isLoggedIn && !this.areSearchEvents && this.arePending) {
+      
     } else {
       this.myCharityService.getEvents()
         .then((events: EventModel[]) => {
           this.events = events;
-        })
+        });
     }
   }
 }
