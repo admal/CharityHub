@@ -11,5 +11,6 @@ namespace CharityHub.Domain.Models.EventParticipantModels
         public int UserId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public string EmailAddress { get; set; }
     }
 }

@@ -19,7 +19,8 @@ namespace CharityHub.Api
                 .ForMember(dest => dest.PasswordHash, e => e.MapFrom(src => cryptographyService.GetHashString(src.Password)));
             CreateMap<EventParticipant, EventParticipantModel>()
                 .ForMember(dest => dest.Surname, e => e.MapFrom(src => src.User.Name))
-                .ForMember(dest => dest.Name, e => e.MapFrom(src => src.User.Surname));
+                .ForMember(dest => dest.Name, e => e.MapFrom(src => src.User.Surname))
+                .ForMember(dest => dest.EmailAddress, e => e.MapFrom(src => src.User.EmailAddress));
         }
     }
 }
