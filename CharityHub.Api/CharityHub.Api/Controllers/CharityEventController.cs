@@ -130,7 +130,7 @@ namespace CharityHub.Api.Controllers
                 return BadRequest();
             }
             charityEventService.AcceptUser(model.UserId.Value, model.CharityEventId.Value);
-            return Ok();
+            return Json(Ok());
         }
 
         [HttpPost]

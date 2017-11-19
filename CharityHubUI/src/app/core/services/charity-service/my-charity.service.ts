@@ -23,10 +23,6 @@ export class MyCharityService {
   }
 
   addToEvent(userId: number, charityEventId: number) {
-    let params = new HttpParams();
-    params = params.append('userId', userId.toString());
-    params = params.append('charityEventId', charityEventId.toString());
-
     return this.http.post(`${this.apiRootEvent}SignInEvent?userId=${userId}&charityEventId=${charityEventId}`, { responseType: 'text' as 'json' })
       .toPromise();
   }
@@ -122,38 +118,9 @@ export class MyCharityService {
       });
   }
 
-  getEventDetails(id: number): Promise<ManageEventModel> {
-    return new Promise<ManageEventModel>(resolve => {
-      resolve({
-        id: 0,
-        name: 'event 1',
-        users: [{
-          firstName: 'user',
-          lastName: 'first',
-          id: 0,
-          isAccepted: true,
-          mail: 'user.first@gmail.com'
-        }, {
-          firstName: 'user',
-          lastName: 'second',
-          id: 0,
-          isAccepted: false,
-          mail: 'user.second@gmail.com'
-        }, {
-          firstName: 'user',
-          lastName: 'third',
-          id: 0,
-          isAccepted: true,
-          mail: 'user.third@gmail.com'
-        }, {
-          firstName: 'user',
-          lastName: 'fourth',
-          id: 0,
-          isAccepted: false,
-          mail: 'user.fourth@gmail.com'
-        }]
-      });
-    });
+  getEventDetails(id: number) {
+    return this.http.get<EventModel>(`${this.apiRootEvent}${id}`)
+      .toPromise();
   }
 
   sendEventNews(sendNewsModel: SendNewsModel) {
@@ -161,6 +128,11 @@ export class MyCharityService {
       .toPromise();
   }
 
+  acceptUserInEvent(userId: number, charityEventId: number) {
+    return this.http.post(`${this.apiRootEvent}AcceptUser?userId=${userId}&charityEventId=${charityEventId}`, { responseType: 'text' as 'json' })
+      .toPromise();
+  }
+  
   getPendingEvents(userId: number) {
     return this.http.get(`${this.apiRootEvent}GetPendinEventsForUser?userId=${userId}`)
       .toPromise();

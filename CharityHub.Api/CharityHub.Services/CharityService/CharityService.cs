@@ -61,7 +61,8 @@ namespace CharityHub.Services.CharityService
                     Description = x.Description,
                     Name = x.Name,
                     OrganizationType = (int)x.Category,
-                    OwnerName = x.Owner.Name
+                    OwnerName = x.Owner.Name,
+                    IsObserving = x.ObservedByUsers.Select(y => y.Id).Contains(x.Id)
                 })
                 .ToList();
             return charities;

@@ -1,3 +1,4 @@
+import { ParticipantModel } from './participant.type';
 import { EventType } from "./event-type.type";
 
 export class EventModel {
@@ -8,4 +9,5 @@ export class EventModel {
   endDate: Date;
   eventCategory: EventType;
   charityId: number;
+  participants: ParticipantModel[];
 }
