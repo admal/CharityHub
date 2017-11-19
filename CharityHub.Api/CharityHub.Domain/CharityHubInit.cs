@@ -57,7 +57,7 @@ namespace CharityHub.Domain
             {
                 new Charity()
                 {
-                    Name = "Organizacja zbierania jedzenia dla ubogich",
+                    Name = "Caritas",
                     Description = "Celem organizacji jest zbieranie jedzenia dla bezdomnych. Jedzenie zbieramy poprzez zbiórki w miejscach publicznych lub innych",
                     Category = CharityCategory.NonProfit,
                     CreatedDate = DateTime.Now,
@@ -66,7 +66,7 @@ namespace CharityHub.Domain
                 },
                 new Charity()
                 {
-                    Name = "Organizacja zbierania pieniędzy dla dzieci",
+                    Name = "Panda",
                     Description = "Celem organizacji jest zbieranie pieniędzy które będą przekazywane najbiedniejszych dzieci w naszej okolicy.",
                     Category = CharityCategory.Profit,
                     CreatedDate = DateTime.Now,
@@ -92,8 +92,8 @@ namespace CharityHub.Domain
             {
                 return;
             }
-            var charityAdam = context.Charities.First(x => x.Name == "Organizacja zbierania jedzenia dla ubogich");
-            var charityRychu = context.Charities.First(x => x.Name == "Organizacja zbierania pieniędzy dla dzieci");
+            var charityAdam = context.Charities.First(x => x.Name == "Caritas");
+            var charityRychu = context.Charities.First(x => x.Name == "Panda");
 
             var charityEvents = new CharityEvent[]
             {
@@ -106,7 +106,7 @@ namespace CharityHub.Domain
                     EndDate = new DateTime(2017,11,21),
                     Description = "W Warszawie jest wiele ubogich rodzin u których nie starcza pieniędzy na jedzenie." +
                                   "Możemy im pomóc. Zapraszamy",
-                    EventCategory = EventCategory.FoodCollection,
+                    EventCategory = EventCategory.HomelessHelp,
                 },
                  new CharityEvent()
                 {
@@ -116,7 +116,7 @@ namespace CharityHub.Domain
                     StartDate = new DateTime(2017,11,22),
                     EndDate = new DateTime(2017,11,24),
                     Description = "Noclegownia z Ursynowa ma ograniczony budżet. Jakość posiłków nie jeset tam najlepsza. Zbieramy podstawowe produkty takie jak mąka, cukier itp.",
-                    EventCategory = EventCategory.FoodCollection,
+                    EventCategory = EventCategory.HomelessHelp,
                 },
                 new CharityEvent()
                 {
@@ -126,7 +126,7 @@ namespace CharityHub.Domain
                     StartDate = new DateTime(2017,11,19),
                     EndDate = new DateTime(2017,11,21),
                     Description = "Dzieci w domu dziecka potrzebują remontu łazienki. Na remont potrzebne jest oko. 10.000zł. Jeżeli dużo osób pomoże to się uda :)",
-                    EventCategory = EventCategory.FoodCollection,
+                    EventCategory = EventCategory.HospitalHelp,
                 }
             };
 
@@ -193,6 +193,7 @@ namespace CharityHub.Domain
                     User = krystian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
                     CharityEvent = naRemontLazienki,
+                    IsAccepted = true
                 },
                 new EventParticipant()
                 {
