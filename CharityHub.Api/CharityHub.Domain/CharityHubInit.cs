@@ -58,7 +58,7 @@ namespace CharityHub.Domain
                 new Charity()
                 {
                     Name = "Organizacja zbierania jedzenia dla ubogich",
-                    Description = "Celem organizacji jest zbieranie jedzenia dla bezdomnych. Jedzenie zbieramy po przez zbiórki w miejscach publicznych lub innych",
+                    Description = "Celem organizacji jest zbieranie jedzenia dla bezdomnych. Jedzenie zbieramy poprzez zbiórki w miejscach publicznych lub innych",
                     Category = CharityCategory.NonProfit,
                     CreatedDate = DateTime.Now,
                     Owner = adam,
@@ -272,7 +272,7 @@ namespace CharityHub.Domain
                 {
                     Subject = "Pieniądze",
                     CreatedDate = new DateTime(2017,11,20,12,32,12),
-                    Body = "Pieniądze przekazujemy jedynie po przez przelew na konto",
+                    Body = "Pieniądze przekazujemy jedynie poprzez przelew na konto",
                     CharityEventId = 3,
                 },
             };

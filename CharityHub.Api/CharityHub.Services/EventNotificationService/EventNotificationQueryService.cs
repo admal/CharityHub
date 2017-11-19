@@ -20,9 +20,9 @@ namespace CharityHub.Services.EventNotificationService
             var notifications = _context.EventNotifications
                 .Include(x => x.CharityEvent)
                 .Include(x => x.CharityEvent.Charity)
-                .Include(x => x.CharityEvent.Charity.ObservedByUsers)
+                .Include(x => x.CharityEvent.Participants)
                 .Where(x =>
-                    x.CharityEvent.Charity.ObservedByUsers.Select(y => y.UserId).Contains(userId)
+                    x.CharityEvent.Participants.Where(y => y.IsAccepted == true && y.UserId == userId).Count() > 0
                 )
                 .Select(x => new EventNotificationModel()
                 {
