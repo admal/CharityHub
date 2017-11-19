@@ -173,7 +173,7 @@ namespace CharityHub.Domain
                 {
                     User = krystian,
                     ParticipationRequestDate = new DateTime(2017,11,18),
-                    IsAccepted = false,
+                    IsAccepted = true,
                     CharityEvent = dlaJanaJedzenie
                 },
                 new EventParticipant()
